@@ -185,7 +185,7 @@ public function login(){
             $model = new PartnerModel();
             $model->insert($partnerdata);
 
-            return redirect()->to('dashboard');
+            return redirect()->to('dashboard/searchform');
         }
 
 
