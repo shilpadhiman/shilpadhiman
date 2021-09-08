@@ -37,7 +37,7 @@ public function login(){
  	 $this->setUserSession($user);
 		
 	//$session->setFlashdata('success', 'Successful Registration');
- 	return redirect()->to('profile');
+ 	return redirect()->to('dashboard');
  	
 
  	 }

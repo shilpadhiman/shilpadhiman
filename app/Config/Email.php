@@ -61,14 +61,14 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $SMTPPass='radhakishna19';
+	public $SMTPPass='pzryepzaqxvqjmih';
 
 	/**
 	 * SMTP Port
 	 *
 	 * @var integer
 	 */
-	public $SMTPPort = 465;
+	public $SMTPPort = 587;
 
 	/**
 	 * SMTP Timeout (in seconds)
@@ -89,7 +89,7 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $SMTPCrypto = 'ssl';
+	public $SMTPCrypto = 'tls';
 
 	/**
 	 * Enable word-wrap
@@ -145,7 +145,7 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $newline = "\r\n";
+ 	 public $newline = "\r\n";
 
 	/**
 	 * Enable BCC Batch Mode.

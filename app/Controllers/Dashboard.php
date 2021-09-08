@@ -1,6 +1,6 @@
 <?php
 namespace App\Controllers;
-use App\Libraries\maildata;
+use App\Libraries\Mailinfo;
 use App\Models\UserModel;
 use App\Models\ProfileModel;
 use App\Models\PartnerModel;
@@ -58,13 +58,14 @@ class Dashboard extends BaseController
     return view('admin/dashboard', array('builddata'=>$builddata));
 
     }
-      public function mailinfo(){
-    $slug = new maildata();
-    echo "<pre>"; print_r($slug); die();
 
-    echo $slug->mail('shilpa.dhiman31@gmail.com');
+    public function mailinfo(){
+
+        $slug= new Mailinfo();
+
+     echo $slug->mail('shilpa.dhiman762@gmail.com');
+       
     }
-    
 
 } 
 

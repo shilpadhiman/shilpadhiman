@@ -1,29 +1,6 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-<title> Matrimonial Signup Page Website Template | SmartEye Apps</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Marital Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-
- <script type="text/javascript">
-var url= '<?php echo base_url();?>';
- </script>
-
-<link href="<?php echo base_url();?>/assets/css/bootstrap-3.1.1.min.css" rel='stylesheet' type='text/css' />
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-
-<!-- Custom Theme files -->
-<link href="<?php echo base_url();?>/assets/css/style.css" rel='stylesheet' type='text/css' />
-<link href='http://fonts.googleapis.com/css?family=Oswald:300,400,700' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
-
-<link href="<?php echo base_url();?>/assets/css/font-awesome.css" rel="stylesheet">
-</head>
-
-
+<?= $this->include('admin/header') ?>
 <div class="container" style="margin-top:20px;">
 <div class="row">
 <div class="panel panel-primary">
@@ -45,18 +22,7 @@ var url= '<?php echo base_url();?>';
                                 <option value="50-60">50-60</option>
                             </select>                                
                         </div> 
-                       <!--  <div class="form-group">
-                            <label class="filter-col"  for="pref-search">Location:</label>
-                            <select id="location" class="form-control" name="location">
-                                <option></option>
-                                <option value="chandigarh">Chandiagrh</option>
-                                <option value="punjab">punjab</option>
-                                <option value="mohali">Mohali</option>
-                                <option value="panchkula">panchkula</option>
-                                <option value="delhi">Delhi</option>
-                            </select>
-                        </div> -->
-                        <div class="form-group"> 
+                           <div class="form-group"> 
                            <label class="genderdata"  for="pref-orderby">Gender:</label>
                             <select id="genderdata" class="form-control" name="gender">
                                 <option></option>
@@ -98,14 +64,12 @@ var url= '<?php echo base_url();?>';
 foreach ($builddata as $value) {?>    
 
   <div class="column  col-md-3" >
-
- 
   <img src="<?php echo base_url();?>/images/ab.png" alt="Snow" style="width:30%">
   <span>Name:  <?php echo $value['name'];?></span>
     <span>Education:  <?php echo $value['education_level'];?></span>
     <span>Age:  <?php echo $value['age'];?></span>
     <span>Gender:  <?php echo $value['gender'];?></span>
-    <input type="submit" name="invite" value="Invite" class="btn-primary">
+    <input type="submit" id="btnsubmit" name="invite" value="Invite" class="btn-primary">
 
   </div>
     <?php }}?>
@@ -115,128 +79,14 @@ foreach ($builddata as $value) {?>
 </div>
 </div>
 
-<script>
-// Get the elements with class="column"
-var elements = document.getElementsByClassName("column col-md-3");
-
-// Declare a loop variable
-var i;
-
-// List View
-function listView() {
-  for (i = 0; i < elements.length; i++) {
-    elements[i].style.width = "100%";
-  }
-}
-
-// Grid View
-function gridView() {
-  for (i = 0; i < elements.length; i++) {
-    elements[i].style.width = "25%";
-  }
-}
-
-/* Optional: Add active class to the current button (highlight it) */
-var container = document.getElementById("btnContainer");
-var btns = container.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function() {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
-  });
-}
-</script>
-<style>
-* {
-  box-sizing: border-box;
-}
-
-/* Create two equal columns that floats next to each other */
-.column {
-  float: left;
- /* width: 50%;*/
-  padding: 10px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-div#btnContainer {
-    margin-top: 15px;
-}
-.btn:hover {
-  background-color: #ddd;
-}
-
-.btn.active {
-  background-color: #666;
-  color: white;
-}
-
-.column.col-md-3 {
-    border: 1px solid;
-    color: unset;
-    border-color: darkgray;
-    padding-left: inherit;
-}
-span {
-    padding-left: initial;
-    display: table-footer-group;
-    display: table;
-}
-a.logo {
-    color: azure;
-    font-size: medium;
-}
-select#pref-perpage {
-    padding-left: 50px;
-    padding-right: 50px;
-}
-.container{
-    margin-top:30px;
-}
-
-.filter-col{
-    padding-left:10px;
-    padding-right:10px;
-}
-button.btn.btn-primary {
-   padding-left: 76px;
-   }
-</style>
+<script src="<?php echo base_url(); ?>/assets/js/ajax.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
-$(document).ready(function(){
-$("select").change(function(){
-var val1= $( "#agedata" ).val();
-//var val2= $( "#location" ).val();
-var val3= $( "#genderdata" ).val();
-var val4= $( "#castdata" ).val();
-
- $.ajax({
-      type: 'POST',
-      url:   url + 'dashboard/searchform',
-      data: {age: val1 , location: val2, gender: val3, cast: val4},
-      dataType:'jsonp',
-      success: function(response) {
-          $("#testerdata").html(response);
-      
-      },
-      error: function(error){
-         console.log(error); 
-      }
-      
-
-  });
-
-
+$(document).ready(function() {
+    $("#btnsubmit").click(function(){
+        alert("button");
+    }); 
 });
-
-}); 
 
 </script>
