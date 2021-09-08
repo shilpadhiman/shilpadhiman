@@ -13,12 +13,10 @@ class Dashboard extends BaseController
 {
     public function index()
     {
-
     return redirect()->to('dashboard/searchform');
     }
     public function searchform(){
-
-         $request =\Config\Services::request();
+        $request =\Config\Services::request();
         $searchData=[];
         //$request = service('request');
         if($this->request->getMethod()== 'get'){  
@@ -60,10 +58,9 @@ class Dashboard extends BaseController
     return view('admin/dashboard', array('builddata'=>$builddata));
 
     }
-
-    public function allmail(){
+      public function mailinfo(){
     $slug = new maildata();
-    echo "<pre>"; print_r($slug);
+    echo "<pre>"; print_r($slug); die();
 
     echo $slug->mail('shilpa.dhiman31@gmail.com');
     }

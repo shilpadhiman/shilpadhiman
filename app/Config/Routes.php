@@ -50,6 +50,7 @@ $routes->get('logout', 'User::logout');
 
 $routes->get('profile','User::profile');
 $routes->get('Inpartner','User::InPartner');
+$routes->get('mail','dashboard::mailinfo');
 
 //$routes->get('profile','dashboard::index');
 

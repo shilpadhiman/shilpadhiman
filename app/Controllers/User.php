@@ -194,5 +194,6 @@ public function login(){
     	return view('admin/partner_profile');
     }
 
+  
 
 }
