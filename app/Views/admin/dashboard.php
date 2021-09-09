@@ -69,7 +69,7 @@
           <span>Age:  <?php echo $value['age'];?></span>
           <span>Gender:  <?php echo $value['gender'];?></span>
           <!-- <input type="button" id="confirm" name="invite" value="Invite" class="btn-primary"> -->
-          <button type="button"  onclick="removeday(<?php echo $value['id']; ?>)" class="btninfo btn-primary" >Invite</button>
+          <button type="button"  onclick="removeday(<?php echo $value['id']; ?>)" class="btninfo<?php echo $value['id'];?> btn-primary" >Invite</button>
             <input type="hidden" name="recived_id" value="<?php echo $value['id'];?>" id= "received_id">
 
         </div>
@@ -93,7 +93,10 @@
         $('.btninfo').attr('disabled', 'disabled');
     },
     success: function (response) {
-      $('.btninfo').attr('disabled', false);
+      $('.btninfo'+id).attr('disabled', false);
+      $('.btninfo'+id).remove('btn-success');
+      $('.btninfo'+id).addClass('btn-warning');
+      $('.btninfo'+id).text('request sended');
       alert('Success');
     },
     error: function(error){
