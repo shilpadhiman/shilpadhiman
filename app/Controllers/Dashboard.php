@@ -4,6 +4,7 @@ use App\Libraries\Mailinfo;
 use App\Models\UserModel;
 use App\Models\ProfileModel;
 use App\Models\PartnerModel;
+use App\Models\Chatrequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\IncomingRequest;
 
@@ -60,28 +61,30 @@ class Dashboard extends BaseController
     }
 
     public function mailinfo(){
+         $request = service('request');
+       if($this->request->getMethod()== 'post'){
+        $data['request_id'] = $this->request->getVar('id');
+        $data['email']= $this->request->getVar('email');
+         $slug= new Mailinfo();
+        $slug->mail($data['email']);         
+       }
 
-        $slug= new Mailinfo();
-
-     echo $slug->mail('shilpa.dhiman762@gmail.com');
+       echo json_encode($response);
        
     }
 
     public function sendrequest(){
-       /* $response = array(
-            'status' => 1,
-            'message' => 'Success'
-        );
-
-        echo json_encode($response);*/
-
-      $request =\Config\Services::request();
+        $request = service('request');
+        $data=[];
+      
        if($this->request->getMethod()== 'post'){
-        $send_id= $this->request->getVar('id');
-        echo $send_id;
-
+        $data['request_id'] = $this->request->getVar('id');
+        $data['status']= $this->request->getVar('status');
+        $data['email']= $this->request->getVar('email');
+        $requestmodel = new Chatrequest();
+        $requestmodel->insert($data);          
        }
-
+       echo json_encode($response);
     }
 
 } 

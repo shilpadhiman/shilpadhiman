@@ -69,8 +69,7 @@
           <span>Age:  <?php echo $value['age'];?></span>
           <span>Gender:  <?php echo $value['gender'];?></span>
           <!-- <input type="button" id="confirm" name="invite" value="Invite" class="btn-primary"> -->
-          <button type="button"  onclick="removeday(<?php echo $value['id']; ?>)" class="btninfo<?php echo $value['id'];?> btn-primary" >Invite</button>
-            <input type="hidden" name="recived_id" value="<?php echo $value['id'];?>" id= "received_id">
+          <button type="button"  onclick="removeday('<?php echo $value['id']; ?>','<?php echo $value['email']; ?>')" class="btninfo<?php echo $value['id'];?> btn-primary" >Invite</button>
 
         </div>
     <?php }?>
@@ -83,11 +82,11 @@
 <script src="<?php echo base_url(); ?>/assets/js/ajax.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-   function removeday(id){    
+   function removeday(id,email){   
   $.ajax({
     type: "post",
     url: url +'/dashboard/sendrequest',
-    data: {id:id},
+    data: {id:id,status:'1',email:email},
     dataType: "json",
     beforeSend:function(){
         $('.btninfo').attr('disabled', 'disabled');
@@ -104,5 +103,4 @@
    }  
  });      
 }
-
 </script>
