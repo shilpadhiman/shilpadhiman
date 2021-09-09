@@ -68,7 +68,12 @@ class Dashboard extends BaseController
     }
 
     public function sendrequest(){
-        echo "<pre>"; print_r($_POST); die(); 
+        $response = array(
+            'status' => 1,
+            'message' => 'Success'
+        );
+
+        echo json_encode($response);
     }
 
 } 

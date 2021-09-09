@@ -32,27 +32,44 @@ for (var i = 0; i < btns.length; i++) {
 //Searchform ajax call
 
 $(document).ready(function(){
-$("select").change(function(){
-var val1= $( "#agedata" ).val();
-var val3= $( "#genderdata" ).val();
-var val4= $( "#castdata" ).val();
+  $("select").change(function(){
+    var val1= $( "#agedata" ).val();
+    var val3= $( "#genderdata" ).val();
+    var val4= $( "#castdata" ).val();
 
- $.ajax({
+    $.ajax({
       type: 'POST',
       url:   url + 'dashboard/searchform',
       data: {age: val1 ,gender: val3, cast: val4},
       dataType:'jsonp',
       success: function(response) {
-          $("#testerdata").html(response);    
+        $("#testerdata").html(response);    
       },
       error: function(error){
-         console.log(error); 
-      }
-      
+       console.log(error); 
+     }
+
+
+   });
+
 
   });
 
-
 });
 
-}); 
+//invitation 
+/*function removeday(id){    
+  $.ajax({
+    type: "post",
+    url: url +'/dashboard/sendrequest',
+    data: {id:id},
+    dataType: "json",
+    success: function (response) {
+      $('.btninfo').prop('disabled', false);
+      alert('Success');
+    },
+    error: function(error){
+     console.log(error); 
+   }  
+ });      
+}*/
