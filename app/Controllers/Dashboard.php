@@ -68,12 +68,20 @@ class Dashboard extends BaseController
     }
 
     public function sendrequest(){
-        $response = array(
+       /* $response = array(
             'status' => 1,
             'message' => 'Success'
         );
 
-        echo json_encode($response);
+        echo json_encode($response);*/
+
+      $request =\Config\Services::request();
+       if($this->request->getMethod()== 'post'){
+        $send_id= $this->request->getVar('id');
+        echo $send_id;
+
+       }
+
     }
 
 } 
