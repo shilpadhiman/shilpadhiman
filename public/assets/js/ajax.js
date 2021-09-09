@@ -34,18 +34,16 @@ for (var i = 0; i < btns.length; i++) {
 $(document).ready(function(){
 $("select").change(function(){
 var val1= $( "#agedata" ).val();
-//var val2= $( "#location" ).val();
 var val3= $( "#genderdata" ).val();
 var val4= $( "#castdata" ).val();
 
  $.ajax({
       type: 'POST',
       url:   url + 'dashboard/searchform',
-      data: {age: val1 , location: val2, gender: val3, cast: val4},
+      data: {age: val1 ,gender: val3, cast: val4},
       dataType:'jsonp',
       success: function(response) {
-          $("#testerdata").html(response);
-      
+          $("#testerdata").html(response);    
       },
       error: function(error){
          console.log(error); 

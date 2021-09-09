@@ -60,8 +60,8 @@
 
 <div class="col-md-12"> 
    <?php
-   if(!empty($builddata)){
-foreach ($builddata as $value) {?>    
+foreach ($builddata as $value) {
+    ?>    
 
   <div class="column  col-md-3" >
   <img src="<?php echo base_url();?>/images/ab.png" alt="Snow" style="width:30%">
@@ -69,10 +69,11 @@ foreach ($builddata as $value) {?>
     <span>Education:  <?php echo $value['education_level'];?></span>
     <span>Age:  <?php echo $value['age'];?></span>
     <span>Gender:  <?php echo $value['gender'];?></span>
-    <input type="submit" id="btnsubmit" name="invite" value="Invite" class="btn-primary">
+    <input type="submit" id="confirm" name="invite" value="Invite" class="btn-primary">
+    <input type="hidden" name="recived_id" value="<?php echo $value['id'];?>" id= "received_id">
 
   </div>
-    <?php }}?>
+    <?php }?>
 </div>
 </div>
 </div>
@@ -83,10 +84,20 @@ foreach ($builddata as $value) {?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
-$(document).ready(function() {
-    $("#btnsubmit").click(function(){
-        alert("button");
-    }); 
-});
+$(document).on('click', '#confirm', function(){
+var receive_id =$("#received_id").val();
+alert(receive_id);
+$.ajax({
+   url:   url +'dashboard/searchform/sendrequest',
+    method: "POST",
+    data: {receive_id:receive_id},
+    success: function() {
+          //$("#confirm").html(response);    
+      },
+      error: function(error){
+         console.log(error); 
+      }    
 
+});
+});
 </script>
