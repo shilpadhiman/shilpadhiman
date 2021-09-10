@@ -59,12 +59,7 @@
     <div class="col-md-12"> 
        <?php
        if(!empty($builddata)){
-       foreach ($builddata as $value) {
-
-
-        ?>  
-
-
+       foreach ($builddata as $value) {?>  
         <div class="column  col-md-3" >
           <img src="<?php echo base_url();?>/images/ab.png" alt="Snow" style="width:30%">
           <span>Name:  <?php echo $value['name'];?></span>
@@ -79,6 +74,8 @@
 </div>
 </div>
 </div>
+
+
 </div>
 </div>
 

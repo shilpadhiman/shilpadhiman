@@ -50,7 +50,10 @@ class Dashboard extends BaseController
         }else{
             $builder->where(['profile_details.age >' => $agevar[0], 'profile_details.age <' => $agevar[1]]);
         }
-        $builddata = $builder->get()->getResultArray();       
+
+        $builddata = $builder->get()->getResultArray();
+
+
         }
     return view('admin/dashboard', array('builddata'=>$builddata));
 
@@ -95,11 +98,21 @@ class Dashboard extends BaseController
         return view('admin/dashboard', array('reqdata'=>$reqdata));
     }
 
-    public function notification(){
-        
-
-        return view('admin/notification');
+       public function notification(){
+ 
+        $db= \Config\Database::connect();
+        $session = \Config\Services::session($config);
+        $request_id = $session->get('id');
+        $builder = $db->table('chatrequest');
+        $builder->select('*');
+        $builder->join('register', 'chatrequest.send_id = register.id');
+        $builder->where('request_id', $request_id);
+        $notificdata = $builder->get()->getResultArray();
+        return view('admin/notification', array('notificdata'=>$notificdata));
     }
+
+
+    
 
 } 
 
