@@ -32,8 +32,6 @@ class Dashboard extends BaseController
             $agevar[0] ='18';
             $agevar[1]='100';
         }   
-
-
         $db = \Config\Database::connect();
         $builder = $db->table('register');
         $builder->select('*');
@@ -52,15 +50,14 @@ class Dashboard extends BaseController
         }else{
             $builder->where(['profile_details.age >' => $agevar[0], 'profile_details.age <' => $agevar[1]]);
         }
-        $builddata = $builder->get()->getResultArray();
-
-        
-}
+        $builddata = $builder->get()->getResultArray();       
+        }
     return view('admin/dashboard', array('builddata'=>$builddata));
 
     }
 
     public function mailinfo(){
+
          $request = service('request');
        if($this->request->getMethod()== 'post'){
         $data['request_id'] = $this->request->getVar('id');
@@ -75,9 +72,10 @@ class Dashboard extends BaseController
 
     public function sendrequest(){
         $request = service('request');
+        $session = \Config\Services::session($config);
         $data=[];
-      
-       if($this->request->getMethod()== 'post'){
+        if($this->request->getMethod()== 'post'){
+        $data['send_id'] = $session->get('id');    
         $data['request_id'] = $this->request->getVar('id');
         $data['status']= $this->request->getVar('status');
         $data['email']= $this->request->getVar('email');
@@ -85,6 +83,14 @@ class Dashboard extends BaseController
         $requestmodel->insert($data);          
        }
        echo json_encode($response);
+    }
+
+    public function approved(){
+        $db= \Config\Database::connect();
+        $builder = $db->table('chatrequest');
+        $query= $builder->select('status, chat_id');
+       $builder->where('send_id', '66');
+
     }
 
 } 

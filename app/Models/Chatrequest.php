@@ -14,7 +14,7 @@ class Chatrequest extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['request_id','status','email'];
+	protected $allowedFields        = ['request_id','status','email','send_id'];
 
 	// Dates
 	protected $useTimestamps        = false;
