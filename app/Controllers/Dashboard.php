@@ -96,23 +96,7 @@ class Dashboard extends BaseController
         $reqdata = $builder->get()->getResultArray();
         //echo "<pre>"; print_r(array('reqdata'=>$reqdata)); die();
         return view('admin/dashboard', array('reqdata'=>$reqdata));
-    }
-
-       public function notification(){
- 
-        $db= \Config\Database::connect();
-        $session = \Config\Services::session($config);
-        $request_id = $session->get('id');
-        $builder = $db->table('chatrequest');
-        $builder->select('*');
-        $builder->join('register', 'chatrequest.send_id = register.id');
-        $builder->where('request_id', $request_id);
-        $notificdata = $builder->get()->getResultArray();
-        return view('admin/notification', array('notificdata'=>$notificdata));
-    }
-
-
-    
+    }    
 
 } 
 

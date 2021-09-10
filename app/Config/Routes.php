@@ -43,7 +43,7 @@ $routes->match(['get', 'post'], 'register', 'User::register', ['filter' => 'noau
 $routes->match(['get', 'post'], 'login', 'User::login', ['filter' => 'noauth']);
 $routes->get('dashboard', 'dashboard::index');
 
-/*$routes->get('notification', 'notification::index');*/
+$routes->get('notification', 'notification::index');
 $routes->get('logout', 'User::logout');
 
 
