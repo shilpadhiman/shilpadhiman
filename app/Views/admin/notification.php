@@ -127,13 +127,13 @@
   </div>
 
   <div class="row">
- <?php
+    
+    <div class="col-md-12"> 
+    <?php
        if(!empty($builddata)){
        foreach ($builddata as $value) {
 
-       ?> 
-    <div class="col-md-12"> 
-       
+       ?>    
         <div class="column  col-md-3" >
           <img src="<?php echo base_url();?>/images/ab.png" alt="Snow" style="width:30%">
           <span>Name:  <?php echo $value['name'];?></span>
@@ -144,9 +144,9 @@
           <button type="button"  onclick="removeday('<?php echo $value['id']; ?>','<?php echo $value['email']; ?>')" class="btninfo<?php echo $value['id'];?> btn-primary" >Invite</button>
 
         </div>
- 
+  <?php } }?>
 </div>
-   <?php } }?>
+  
 </div>
 
 
@@ -315,12 +315,12 @@ button.btn.btn-primary {
 }*/
 
 /* Clear floats after the columns */
-/*.row:after {
+.row:after {
   content: "";
   display: table;
   clear: both;
 }
-*/
+
 div#btnContainer {
     margin-top: 15px;
 }
@@ -344,7 +344,7 @@ span {
     display: table-footer-group;
     display: table;
 }
-/*a.logo {
+a.logo {
     color: azure;
     font-size: medium;
 }
@@ -354,9 +354,9 @@ select#pref-perpage {
 }
 .container{
     margin-top:30px;
-}*/
+}
 
-/*.filter-col{
+.filter-col{
     padding-left:10px;
     padding-right:10px;
 }
@@ -364,7 +364,7 @@ button.btn.btn-primary {
    padding-left: 76px;
    }
 
-*/
+
 
 
 
