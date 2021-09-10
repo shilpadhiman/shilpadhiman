@@ -54,13 +54,16 @@
       <button class="btn active" onclick="gridView()"><i class="fa fa-th-large"></i> Grid</button>
   </div>
 
-
   <div class="row">
 
     <div class="col-md-12"> 
        <?php
+       if(!empty($builddata)){
        foreach ($builddata as $value) {
-        ?>    
+
+
+        ?>  
+
 
         <div class="column  col-md-3" >
           <img src="<?php echo base_url();?>/images/ab.png" alt="Snow" style="width:30%">
@@ -68,11 +71,11 @@
           <span>Education:  <?php echo $value['education_level'];?></span>
           <span>Age:  <?php echo $value['age'];?></span>
           <span>Gender:  <?php echo $value['gender'];?></span>
-          <!-- <input type="button" id="confirm" name="invite" value="Invite" class="btn-primary"> -->
+
           <button type="button"  onclick="removeday('<?php echo $value['id']; ?>','<?php echo $value['email']; ?>')" class="btninfo<?php echo $value['id'];?> btn-primary" >Invite</button>
 
         </div>
-    <?php }?>
+    <?php } }?>
 </div>
 </div>
 </div>
@@ -92,7 +95,7 @@
         $('.btninfo').attr('disabled', 'disabled');
     },
     success: function (response) {
-      $('.btninfo'+id).attr('disabled', false);
+      $('.btnAinfo'+id).attr('disabled', false);
       $('.btninfo'+id).remove('btn-success');
       $('.btninfo'+id).addClass('btn-warning');
       $('.btninfo'+id).text('request sended');

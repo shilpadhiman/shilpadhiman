@@ -88,9 +88,17 @@ class Dashboard extends BaseController
     public function approved(){
         $db= \Config\Database::connect();
         $builder = $db->table('chatrequest');
-        $query= $builder->select('status, chat_id');
-       $builder->where('send_id', '66');
+        $builder->select('*');
+        $builder->where('send_id', '66');
+        $reqdata = $builder->get()->getResultArray();
+        //echo "<pre>"; print_r(array('reqdata'=>$reqdata)); die();
+        return view('admin/dashboard', array('reqdata'=>$reqdata));
+    }
 
+    public function notification(){
+        
+
+        return view('admin/notification');
     }
 
 } 
