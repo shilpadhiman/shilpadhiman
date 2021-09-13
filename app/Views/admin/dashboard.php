@@ -54,46 +54,113 @@
       <button class="btn active" onclick="gridView()"><i class="fa fa-th-large"></i> Grid</button>
   </div>
 
-
   <div class="row">
 
     <div class="col-md-12"> 
        <?php
-       foreach ($builddata as $value) {
-        ?>    
-
+       if(!empty($builddata)){
+       foreach ($builddata as $value) {?>  
         <div class="column  col-md-3" >
           <img src="<?php echo base_url();?>/images/ab.png" alt="Snow" style="width:30%">
           <span>Name:  <?php echo $value['name'];?></span>
           <span>Education:  <?php echo $value['education_level'];?></span>
           <span>Age:  <?php echo $value['age'];?></span>
           <span>Gender:  <?php echo $value['gender'];?></span>
-          <!-- <input type="button" id="confirm" name="invite" value="Invite" class="btn-primary"> -->
-          <button type="button"  onclick="removeday(<?php echo $value['id']; ?>)" class="btninfo btn-primary" >Invite</button>
-            <input type="hidden" name="recived_id" value="<?php echo $value['id'];?>" id= "received_id">
+
+          <button type="button"  onclick="removeday('<?php echo $value['id']; ?>','<?php echo $value['email']; ?>')" class="btninfo<?php echo $value['id'];?> btn-primary" >Invite</button>
 
         </div>
-    <?php }?>
+    <?php } }?>
 </div>
 </div>
 </div>
+
+
 </div>
 </div>
+
+
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+ /* width: 50%;*/
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+div#btnContainer {
+    margin-top: 15px;
+}
+.btn:hover {
+  background-color: #ddd;
+}
+
+.btn.active {
+  background-color: #666;
+  color: white;
+}
+
+.column.col-md-3 {
+    border: 1px solid;
+    color: unset;
+    border-color: darkgray;
+    padding-left: inherit;
+}
+span {
+    padding-left: initial;
+    display: table-footer-group;
+    display: table;
+}
+a.logo {
+    color: azure;
+    font-size: medium;
+}
+select#pref-perpage {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.container{
+    margin-top:30px;
+}
+
+.filter-col{
+    padding-left:10px;
+    padding-right:10px;
+}
+button.btn.btn-primary {
+   padding-left: 76px;
+   }
+</style>
 
 <script src="<?php echo base_url(); ?>/assets/js/ajax.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-   function removeday(id){    
+   function removeday(id,email){   
   $.ajax({
     type: "post",
     url: url +'/dashboard/sendrequest',
-    data: {id:id},
+    data: {id:id,status:'1',email:email},
     dataType: "json",
     beforeSend:function(){
         $('.btninfo').attr('disabled', 'disabled');
     },
     success: function (response) {
-      $('.btninfo').attr('disabled', false);
+      $('.btnAinfo'+id).attr('disabled', false);
+      $('.btninfo'+id).remove('btn-success');
+      $('.btninfo'+id).addClass('btn-warning');
+      $('.btninfo'+id).text('request sended');
       alert('Success');
     },
     error: function(error){
@@ -101,5 +168,5 @@
    }  
  });      
 }
-
 </script>
+

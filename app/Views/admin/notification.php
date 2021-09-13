@@ -136,7 +136,15 @@
 
        ?>    
         <div class="column  col-md-3" >
+
           <img src="<?php echo base_url();?>/images/profileimage.png" alt="Snow" style="width:30%">
+
+
+          <img src="<?php echo base_url();?>/images/profileimage.png" alt="Snow" style="width:30%">
+
+          <img src="<?php echo base_url();?>/images/ab.png" alt="Snow" style="width:30%">
+
+
           <span>Name:  <?php echo $value['name'];?></span>
           <span>Education:  <?php echo $value['education_level'];?></span>
           <span>Age:  <?php echo $value['age'];?></span>
@@ -167,7 +175,17 @@
 </body>
 </html>
 
+
 <script src="<?php echo base_url(); ?>/assets/js/ajax.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script type="text/javascript">
+var url= '<?php echo base_url();?>';
+ </script>
+
+ 
+<!-- <script src="<?php echo base_url(); ?>/assets/js/ajax.js"></script> -->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
    function removeday(id){    
@@ -190,6 +208,125 @@
 }
 
 </script>
+
+
+
+<script>
+// Get the elements with class="column"
+var elements = document.getElementsByClassName("column col-md-3");
+
+// Declare a loop variable
+var i;
+
+// List View
+function listView() {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].style.width = "100%";
+  }
+}
+
+// Grid View
+function gridView() {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].style.width = "25%";
+  }
+}
+
+/* Optional: Add active class to the current button (highlight it) */
+var container = document.getElementById("btnContainer");
+var btns = container.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+</script>
+
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+ /* width: 50%;*/
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+div#btnContainer {
+    margin-top: 15px;
+}
+.btn:hover {
+  background-color: #ddd;
+}
+
+.btn.active {
+  background-color: #666;
+  color: white;
+}
+
+.column.col-md-3 {
+    border: 1px solid;
+    color: unset;
+    border-color: darkgray;
+    padding-left: inherit;
+}
+span {
+    padding-left: initial;
+    display: table-footer-group;
+    display: table;
+}
+a.logo {
+    color: azure;
+    font-size: medium;
+}
+select#pref-perpage {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.container{
+    margin-top:30px;
+}
+
+.filter-col{
+    padding-left:10px;
+    padding-right:10px;
+}
+button.btn.btn-primary {
+   padding-left: 76px;
+   }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="<?php echo base_url(); ?>/assets/js/ajax.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
 
 <style>
 #btninfo {
@@ -384,5 +521,6 @@ select#pref-perpage {
 button.btn.btn-primary {
    padding-left: 76px;
    }
+
 	
 </style>
