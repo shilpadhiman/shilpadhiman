@@ -4,6 +4,7 @@ use App\Libraries\Mailinfo;
 use App\Models\UserModel;
 use App\Models\ProfileModel;
 use App\Models\PartnerModel;
+use App\Models\Chatrequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\IncomingRequest;
 
@@ -31,8 +32,6 @@ class Dashboard extends BaseController
             $agevar[0] ='18';
             $agevar[1]='100';
         }   
-
-
         $db = \Config\Database::connect();
         $builder = $db->table('register');
         $builder->select('*');
@@ -51,30 +50,53 @@ class Dashboard extends BaseController
         }else{
             $builder->where(['profile_details.age >' => $agevar[0], 'profile_details.age <' => $agevar[1]]);
         }
+
         $builddata = $builder->get()->getResultArray();
 
-        
-}
+
+        }
     return view('admin/dashboard', array('builddata'=>$builddata));
 
     }
 
     public function mailinfo(){
 
-        $slug= new Mailinfo();
+         $request = service('request');
+       if($this->request->getMethod()== 'post'){
+        $data['request_id'] = $this->request->getVar('id');
+        $data['email']= $this->request->getVar('email');
+         $slug= new Mailinfo();
+        $slug->mail($data['email']);         
+       }
 
-     echo $slug->mail('shilpa.dhiman762@gmail.com');
+       echo json_encode($response);
        
     }
 
     public function sendrequest(){
-        $response = array(
-            'status' => 1,
-            'message' => 'Success'
-        );
-
-        echo json_encode($response);
+        $request = service('request');
+        $session = \Config\Services::session($config);
+        $data=[];
+        if($this->request->getMethod()== 'post'){
+        $data['send_id'] = $session->get('id');    
+        $data['request_id'] = $this->request->getVar('id');
+        $data['status']= $this->request->getVar('status');
+        $data['email']= $this->request->getVar('email');
+        $requestmodel = new Chatrequest();
+        $requestmodel->insert($data);          
+       }
+       echo json_encode($response);
     }
+
+    public function approved(){
+        $db= \Config\Database::connect();
+        $builder = $db->table('chatrequest');
+        $builder->select('*');
+        $builder->where('send_id', '66');
+        $reqdata = $builder->get()->getResultArray();
+        //echo "<pre>"; print_r(array('reqdata'=>$reqdata)); die();
+        return view('admin/dashboard', array('reqdata'=>$reqdata));
+    }    
 
 } 
 
