@@ -5,6 +5,7 @@ use App\Models\UserModel;
 use App\Models\ProfileModel;
 use App\Models\PartnerModel;
 use App\Models\Chatrequest;
+
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\IncomingRequest;
 
@@ -16,7 +17,8 @@ class Dashboard extends BaseController
     {
     return redirect()->to('dashboard/searchform');
     }
-    public function searchform(){
+
+   /* public function searchform(){
         $request =\Config\Services::request();
         $searchData=[];
         //$request = service('request');
@@ -32,6 +34,7 @@ class Dashboard extends BaseController
             $agevar[0] ='18';
             $agevar[1]='100';
         }   
+
         $db = \Config\Database::connect();
         $builder = $db->table('register');
         $builder->select('*');
@@ -50,14 +53,31 @@ class Dashboard extends BaseController
         }else{
             $builder->where(['profile_details.age >' => $agevar[0], 'profile_details.age <' => $agevar[1]]);
         }
-
         $builddata = $builder->get()->getResultArray();
 
-
-        }
+        
+}
     return view('admin/dashboard', array('builddata'=>$builddata));
 
     }
+*/
+    public function mailinfo(){
+
+        $slug= new Mailinfo();
+
+     echo $slug->mail('shilpa.dhiman762@gmail.com');
+       
+    }
+
+    public function sendrequest(){
+        $response = array(
+            'status' => 1,
+            'message' => 'Success'
+        );
+
+        echo json_encode($response);
+    }
+
 
     public function mailinfo(){
 

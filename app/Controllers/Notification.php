@@ -4,7 +4,9 @@ use App\Libraries\Mailinfo;
 use App\Models\UserModel;
 use App\Models\ProfileModel;
 use App\Models\PartnerModel;
-use App\Models\Chatrequest;
+
+use App\Models\Chatuser;
+
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\IncomingRequest;
 
@@ -14,12 +16,15 @@ class Notification extends BaseController
 {
     public function index()
     {
+
+         $db= \Config\Database::connect();
  
 	return redirect()->to('notification/notification');
     }
 
   public function notification(){
         $db= \Config\Database::connect();
+
         $session = \Config\Services::session($config);
         $request_id = $session->get('id');
         $builder = $db->table('chatrequest');
@@ -27,6 +32,15 @@ class Notification extends BaseController
         $builder->join('register', 'chatrequest.send_id = register.id');
         $builder->where('request_id', $request_id);
         $notificdata = $builder->get()->getResultArray();
+
+        $build= $this->commondata();
+        return view('admin/notification', array('notificdata'=>$notificdata, 'builddata'=>$build));
+
+    }
+   
+    protected function commondata(){
+         $request =\Config\Services::request();
+
 
         return view('admin/notification', array('notificdata'=>$notificdata));
     }
@@ -68,12 +82,16 @@ class Notification extends BaseController
 
         $builddata = $builder->get()->getResultArray();
 
-        }
+
+        /*echo "<pre>"; print_r($builddata); die();*/
+
+       
         
-   		 return view('admin/notification', array('builddata'=>$builddata));
+         // return view('admin/notification', array('builddata'=>$builddata));
+        return $builddata;
 
-
-    }
+        }
+   
 
     
 }
