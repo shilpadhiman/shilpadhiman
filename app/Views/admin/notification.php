@@ -130,6 +130,7 @@
     
     <div class="col-md-12"> 
     <?php
+
        if(!empty($builddata)){
        foreach ($builddata as $value) {
 
@@ -138,7 +139,11 @@
 
           <img src="<?php echo base_url();?>/images/profileimage.png" alt="Snow" style="width:30%">
 
+
+          <img src="<?php echo base_url();?>/images/profileimage.png" alt="Snow" style="width:30%">
+
           <img src="<?php echo base_url();?>/images/ab.png" alt="Snow" style="width:30%">
+
 
           <span>Name:  <?php echo $value['name'];?></span>
           <span>Education:  <?php echo $value['education_level'];?></span>
@@ -170,6 +175,9 @@
 </body>
 </html>
 
+
+<script src="<?php echo base_url(); ?>/assets/js/ajax.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script type="text/javascript">
 var url= '<?php echo base_url();?>';
@@ -177,6 +185,7 @@ var url= '<?php echo base_url();?>';
 
  
 <!-- <script src="<?php echo base_url(); ?>/assets/js/ajax.js"></script> -->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
    function removeday(id){    
@@ -199,6 +208,8 @@ var url= '<?php echo base_url();?>';
 }
 
 </script>
+
+
 
 <script>
 // Get the elements with class="column"
@@ -313,6 +324,7 @@ button.btn.btn-primary {
 
 <script src="<?php echo base_url(); ?>/assets/js/ajax.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 
 

@@ -7,6 +7,10 @@ use App\Models\PartnerModel;
 
 use App\Models\Chatuser;
 
+
+use App\Models\Chatuser;
+
+
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\IncomingRequest;
 
@@ -16,6 +20,9 @@ class Notification extends BaseController
 {
     public function index()
     {
+
+         $db= \Config\Database::connect();
+
 
          $db= \Config\Database::connect();
  
@@ -42,11 +49,13 @@ class Notification extends BaseController
          $request =\Config\Services::request();
 
 
+
         return view('admin/notification', array('notificdata'=>$notificdata));
     }
 
     public function showuserdata(){
     	 $request =\Config\Services::request();
+
         $searchData=[];
         //$request = service('request');
         if($this->request->getMethod()== 'get'){  
@@ -85,13 +94,23 @@ class Notification extends BaseController
 
         /*echo "<pre>"; print_r($builddata); die();*/
 
+        }
+
+        /*echo "<pre>"; print_r($builddata); die();*/
+
        
+
         
          // return view('admin/notification', array('builddata'=>$builddata));
         return $builddata;
 
+
+
+    }
+
         }
    
+
 
     
 }
