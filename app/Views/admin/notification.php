@@ -120,8 +120,18 @@ foreach($notificdata as $value){
 <div class="col-md-12"> 
 <?php
 if(!empty($builddata)){
+
+$ids=[];
+foreach ($approved as $vue) {
+  
+$ids[]=$vue['request_id']; 
+}
+
+
 foreach ($builddata as $value) {
 ?> 
+
+
 
 <div class="column  col-md-3" >
 
@@ -134,8 +144,14 @@ foreach ($builddata as $value) {
 </div>
 
 <div class="buttoningorm"> 
+ <?php if (in_array($value['id'], $ids)) {?>
+<button type="button"  onclick="removeday('<?php echo $value['id']; ?>','<?php echo $value['email']; ?>')" class="btninfo<?php echo $value['id'];?> btn-warning" >Request sended</button>
+<?php }else{?>
 <button type="button"  onclick="removeday('<?php echo $value['id']; ?>','<?php echo $value['email']; ?>')" class="btninfo<?php echo $value['id'];?> btn-info" >Invite</button>
+<?php }?>
+
 </div>
+
 
 </div>
 <?php }} ?>
