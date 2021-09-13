@@ -56,20 +56,3 @@ $(document).ready(function(){
   });
 
 });
-
-//invitation 
-/*function removeday(id){    
-  $.ajax({
-    type: "post",
-    url: url +'/dashboard/sendrequest',
-    data: {id:id},
-    dataType: "json",
-    success: function (response) {
-      $('.btninfo').prop('disabled', false);
-      alert('Success');
-    },
-    error: function(error){
-     console.log(error); 
-   }  
- });      
-}*/

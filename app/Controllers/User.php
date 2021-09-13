@@ -83,10 +83,10 @@ public function login(){
                 $model->insert($newData);
 
                  $session = session();
-               //$session->setFlashdata('success', 'Successful Registration');
-                //return redirect()->to(base_url('profile'));
-                    $inserted_id= $model->insertID();            
-                return redirect()->to('profile', $inserted_id);
+                 $inserted_id= $model->insertID();
+                  $user = $model->where('id',$inserted_id )->first();
+                  $this->setUserSession($user);            
+                return redirect()->to('profile');
 
          }
          }
@@ -115,7 +115,8 @@ public function login(){
 
 		
  public function profile(){
-
+  /*  $session = \Config\Services::session($config);
+    $userid= $session->get('id');*/
 	     $request = service('request');
        	$method = $request->getMethod();
 
@@ -139,15 +140,11 @@ public function login(){
                 'jobs' => $this->request->getVar('jobs'),
                 'employee' => $this->request->getVar('employee'),
                 'annual' => $this->request->getVar('annual'),              
-            ];
-           
+            ];         
             $model =new ProfileModel();
             $model->insert($profiledata);
             return redirect()->to('Inpartner');
-
         }
-
-
       }  
 
        return view('admin/personal_profile');
@@ -184,13 +181,9 @@ public function login(){
             ];
             $model = new PartnerModel();
             $model->insert($partnerdata);
-
             return redirect()->to('dashboard/searchform');
         }
-
-
       }  
-
     	return view('admin/partner_profile');
     }
 

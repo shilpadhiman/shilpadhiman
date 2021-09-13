@@ -1,26 +1,6 @@
 <!DOCTYPE HTML>
 <?= $this->include('admin/header') ?> 
 
-<style>
-.col-md-10 {
-margin-top: 30px;
-}
-label {
-    margin-top: 35px;
-}
-.logoutfor a {
-    color: currentColor;
-    float: right;
-}
-.logoutfor {
-    display: contents;
-}
-.row {
-    margin-top: 50px;
-}
-</style>
-
-
 <div class="container">
 <div class="row">
 <div class="panel panel-primary">
@@ -37,7 +17,7 @@ label {
                     </div>
                 <?php endif; ?>
 
-<form action="<?php echo base_url('user/profile'); ?>/<?php echo $profile->id;?>" method="post">
+<form action="<?php echo base_url('user/profile'); ?>" method="post">
 <div class="form-group">
 <div class="col-md-2">
 <label for="educationfor">Education:</label>	
