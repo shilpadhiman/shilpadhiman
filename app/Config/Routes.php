@@ -41,12 +41,10 @@ $routes->add('/register','Register::index');
 
 $routes->match(['get', 'post'], 'register', 'User::register', ['filter' => 'noauth']);
 $routes->match(['get', 'post'], 'login', 'User::login', ['filter' => 'noauth']);
-$routes->get('dashboard', 'dashboard::index');
-
-$routes->get('notification', 'notification::index');
+//$routes->get('dashboard', 'dashboard::index');
 $routes->get('logout', 'User::logout');
 
-$routes->get('notification', 'notification::index');
+$routes->get('dashboard', 'notification::index');
 
 
 $routes->get('profile','User::profile');

@@ -85,7 +85,8 @@ public function login(){
                  $session = session();
                //$session->setFlashdata('success', 'Successful Registration');
                 //return redirect()->to(base_url('profile'));
-                    $inserted_id= $model->insertID();            
+                  $inserted_id= $model->insertID();
+
                 return redirect()->to('profile', $inserted_id);
 
          }
@@ -115,6 +116,8 @@ public function login(){
 
 		
  public function profile(){
+
+     $user_id = $this->register();
 
 	     $request = service('request');
        	$method = $request->getMethod();

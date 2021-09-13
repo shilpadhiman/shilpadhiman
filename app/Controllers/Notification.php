@@ -4,13 +4,7 @@ use App\Libraries\Mailinfo;
 use App\Models\UserModel;
 use App\Models\ProfileModel;
 use App\Models\PartnerModel;
-
 use App\Models\Chatuser;
-
-
-use App\Models\Chatuser;
-
-
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\IncomingRequest;
 
@@ -22,35 +16,17 @@ class Notification extends BaseController
     {
 
          $db= \Config\Database::connect();
-
-
-         $db= \Config\Database::connect();
- 
-	return redirect()->to('notification/notification');
-    }
-
-  public function notification(){
-        $db= \Config\Database::connect();
-
         $session = \Config\Services::session($config);
         $request_id = $session->get('id');
         $builder = $db->table('chatrequest');
         $builder->select('*');
         $builder->join('register', 'chatrequest.send_id = register.id');
         $builder->where('request_id', $request_id);
-        $notificdata = $builder->get()->getResultArray();
+        $data['notificdata'] = $builder->get()->getResultArray();
+        $data['builddata']= $this->showuserdata();
+        $data['approved']=$this->approved();
 
-        $build= $this->commondata();
-        return view('admin/notification', array('notificdata'=>$notificdata, 'builddata'=>$build));
-
-    }
-   
-    protected function commondata(){
-         $request =\Config\Services::request();
-
-
-
-        return view('admin/notification', array('notificdata'=>$notificdata));
+        return view('admin/notification', $data);
     }
 
     public function showuserdata(){
@@ -91,26 +67,33 @@ class Notification extends BaseController
 
         $builddata = $builder->get()->getResultArray();
 
-
-        /*echo "<pre>"; print_r($builddata); die();*/
-
         }
-
-        /*echo "<pre>"; print_r($builddata); die();*/
-
-       
-
-        
-         // return view('admin/notification', array('builddata'=>$builddata));
         return $builddata;
 
 
 
     }
+        public function mailinfo(){
+
+        $slug= new Mailinfo();
+
+     echo $slug->mail('shilpa.dhiman762@gmail.com');
+       
+    }
+
+        public function approved(){
+        $session = \Config\Services::session($config);
+        $request_id = $session->get('id');
+        $db= \Config\Database::connect();
+        $builder = $db->table('chatrequest');
+        $builder->select('*');
+        $builder->where('send_id',$request_id);
+        $reqdata = $builder->get()->getResultArray();
+        return $reqdata;
+    }    
 
         }
    
 
 
     
-}

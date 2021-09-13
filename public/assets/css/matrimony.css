@@ -1,60 +1,189 @@
 * {
-  box-sizing: border-box;
+box-sizing: border-box;
 }
 
 /* Create two equal columns that floats next to each other */
 .column {
-  float: left;
- /* width: 50%;*/
-  padding: 10px;
+float: left;
+/* width: 50%;*/
+padding: 10px;
 }
 
 /* Clear floats after the columns */
 .row:after {
-  content: "";
-  display: table;
-  clear: both;
+content: "";
+display: table;
+clear: both;
 }
 
 div#btnContainer {
-    margin-top: 15px;
+margin-top: 15px;
 }
 .btn:hover {
-  background-color: #ddd;
+background-color: #ddd;
 }
 
 .btn.active {
-  background-color: #666;
-  color: white;
+background-color: #666;
+color: white;
 }
 
 .column.col-md-3 {
-    border: 1px solid;
-    color: unset;
-    border-color: darkgray;
-    padding-left: inherit;
+border: 1px solid;
+color: unset;
+border-color: darkgray;
+padding-left: inherit;
 }
 span {
-    padding-left: initial;
-    display: table-footer-group;
-    display: table;
+padding-left: initial;
+display: table-footer-group;
+display: table;
 }
 a.logo {
-    color: azure;
-    font-size: medium;
+color: azure;
+font-size: medium;
 }
 select#pref-perpage {
-    padding-left: 50px;
-    padding-right: 50px;
+padding-left: 50px;
+padding-right: 50px;
 }
 .container{
-    margin-top:30px;
+margin-top:30px;
 }
 
 .filter-col{
-    padding-left:10px;
-    padding-right:10px;
+padding-left:10px;
+padding-right:10px;
 }
 button.btn.btn-primary {
-   padding-left: 76px;
-   }
+padding-left: 76px;
+}
+
+#btninfo {
+width: 170px;
+}
+#agedata {
+margin-left: 0px;
+margin-right: 10px;
+padding-left: 70px;
+}
+.panel-body {
+margin-top: 25px;
+}
+
+.btn.btn-info {
+width: 80px;
+}
+body{
+margin-top: 50px;
+background-color: #f1f1f1;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+background-color: #17A2B8;
+}
+.dropdown-menu{
+top: 60px;
+right: 0px;
+left: unset;
+width: 460px;
+box-shadow: 0px 5px 7px -1px #c1c1c1;
+padding-bottom: 0px;
+padding: 0px;
+}
+.dropdown-menu:before{
+content: "";
+position: absolute;
+top: -20px;
+right: 12px;
+border:10px solid #343A40;
+border-color: transparent transparent #343A40 transparent;
+}
+.head{
+padding:5px 15px;
+border-radius: 3px 3px 0px 0px;
+}
+.footer{
+padding:5px 15px;
+border-radius: 0px 0px 3px 3px;
+}
+.notification-box{
+padding: 10px 0px;
+}
+.bg-gray{
+background-color: #eee;
+}
+@media (max-width: 640px) {
+.dropdown-menu{
+top: 50px;
+left: -16px;
+width: 290px;
+}
+.nav{
+display: block;
+}
+.nav .nav-item,.nav .nav-item a{
+padding-left: 0px;
+}
+.message{
+font-size: 13px;
+}
+}* {
+box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+float: left;
+/* width: 50%;*/
+padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+
+div#btnContainer {
+margin-top: 15px;
+}
+.btn:hover {
+background-color: #ddd;
+}
+
+.btn.active {
+background-color: #666;
+color: white;
+}
+
+.column.col-md-3 {
+border: 1px solid;
+color: unset;
+border-color: darkgray;
+padding-left: inherit;
+}
+span {
+padding-left: initial;
+display: table-footer-group;
+display: table;
+}
+a.logo {
+color: azure;
+font-size: medium;
+}
+select#pref-perpage {
+padding-left: 50px;
+padding-right: 50px;
+}
+.container{
+margin-top:30px;
+}
+
+.filter-col{
+padding-left:10px;
+padding-right:10px;
+}
+button.btn.btn-primary {
+padding-left: 76px;
+}
