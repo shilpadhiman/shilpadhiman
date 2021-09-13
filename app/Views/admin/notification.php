@@ -130,13 +130,16 @@
     
     <div class="col-md-12"> 
     <?php
-
        if(!empty($builddata)){
        foreach ($builddata as $value) {
 
        ?>    
         <div class="column  col-md-3" >
+
           <img src="<?php echo base_url();?>/images/profileimage.png" alt="Snow" style="width:30%">
+
+          <img src="<?php echo base_url();?>/images/ab.png" alt="Snow" style="width:30%">
+
           <span>Name:  <?php echo $value['name'];?></span>
           <span>Education:  <?php echo $value['education_level'];?></span>
           <span>Age:  <?php echo $value['age'];?></span>
@@ -166,6 +169,7 @@
 </div>
 </body>
 </html>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script type="text/javascript">
 var url= '<?php echo base_url();?>';
@@ -305,6 +309,10 @@ button.btn.btn-primary {
 
 
 
+
+
+<script src="<?php echo base_url(); ?>/assets/js/ajax.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 
@@ -501,5 +509,6 @@ select#pref-perpage {
 button.btn.btn-primary {
    padding-left: 76px;
    }
+
 	
 </style>

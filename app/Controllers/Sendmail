@@ -1,0 +1,21 @@
+<?php
+namespace App\Controllers;
+use App\Libraries\maildata;
+class Sendmail extends BaseController
+{
+public function index()
+{
+	echo"here";
+return view('admin/home');
+}
+public function allmail(){
+	echo "here"; 
+	die();
+
+$slug = new maildata();
+
+echo $slug->mail('shilpa.dhiman31@gmail.com');
+}
+
+}
+

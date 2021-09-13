@@ -7,15 +7,15 @@
 <meta name="keywords" content="Marital Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<link href="assets/css/bootstrap-3.1.1.min.css" rel='stylesheet' type='text/css' />
+<link href="<?php echo base_url();?>/assets/css/bootstrap-3.1.1.min.css" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
 <!-- Custom Theme files -->
-<link href="assets/css/style.css" rel='stylesheet' type='text/css' />
+<link href="<?php echo base_url();?>/assets/css/style.css" rel='stylesheet' type='text/css' />
 <link href='http://fonts.googleapis.com/css?family=Oswald:300,400,700' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
 
-<link href="assets/css/font-awesome.css" rel="stylesheet"> 
+<link href="<?php echo base_url();?>/assets/css/font-awesome.css" rel="stylesheet"> 
 
 
 

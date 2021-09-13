@@ -3,8 +3,14 @@
 namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\ProfileModel;
+use App\Models\PartnerModel;
+
 class User extends BaseController
 { 
+public function __construct(){
+$session = \Config\Services::session($config); 
+}
 
 public function login(){
 	$data = [];
@@ -75,25 +81,17 @@ public function login(){
                 ];
                 $model = new UserModel();     
                 $model->insert($newData);
-                $session = session();
-                $session->setFlashdata('success', 'Successful Registration');
-                //return redirect()->to(base_url('dashboard'));
-                return redirect()->to('dashboard');
+
+                 $session = session();
+               //$session->setFlashdata('success', 'Successful Registration');
+                //return redirect()->to(base_url('profile'));
+                    $inserted_id= $model->insertID();            
+                return redirect()->to('profile', $inserted_id);
 
          }
          }
         return view('admin/register');
     }
-/*
-    public function profile()
-    {
-
-        $data = [];
-        $model = new UserModel();
-
-        $data['user'] = $model->where('id', session()->get('id'))->first();
-        return view('profile', $data);
-    }*/
 
     public function logout()
     {
@@ -108,10 +106,94 @@ public function login(){
 	'name' => $user['name'],
 	'mobile' => $user['mobile'],
 	'email' => $user['email'],
+	'gender'=>$user['gender'],
 	'isLoggedIn' => true,
 	];
 	session()->set($data);
 	return true;
 	}
+
+		
+ public function profile(){
+
+	     $request = service('request');
+       	$method = $request->getMethod();
+
+      if($this->request->getMethod()== 'post'){
+        $rules=[
+           	'annual'=>      'required',
+            'age'   =>      'required'
+        ];
+
+        if(!$this->validate($rules)){
+          return view('admin/personal_profile', [
+                    "validation" => $this->validator, 
+                ]);
+        }else{
+        		$session = \Config\Services::session($config);   	
+                 $profiledata=[
+                 'id' => $session->get('id'),
+                'education' => $this->request->getVar('edu'),
+                'age' => $this->request->getVar('age'),
+                'hobbies' => $this->request->getVar('Hobbies'),
+                'jobs' => $this->request->getVar('jobs'),
+                'employee' => $this->request->getVar('employee'),
+                'annual' => $this->request->getVar('annual'),              
+            ];
+           
+            $model =new ProfileModel();
+            $model->insert($profiledata);
+            return redirect()->to('Inpartner');
+
+        }
+
+
+      }  
+
+       return view('admin/personal_profile');
+    }
+
+
+    public function InPartner(){
+    	$request = service('request');
+       	$method = $request->getMethod();
+      if($this->request->getMethod()== 'post'){
+        $rules=[
+           	'interest'=>      'required',
+            'education_level'   =>      'required'
+        ];
+
+        if(!$this->validate($rules)){
+          return view('admin/personal_profile', [
+                    "validation" => $this->validator, 
+                ]);
+        }else{
+        		$session = \Config\Services::session($config);   	
+                 $partnerdata=[
+                 'id' => $session->get('id'),
+                'interest' => $this->request->getVar('interest'),
+                'education_level' => $this->request->getVar('education_level'),
+                'income' => $this->request->getVar('income'),
+                'height' => $this->request->getVar('height'),
+                'age' => $this->request->getVar('age'),
+                'cast' => $this->request->getVar('cast'),
+                'nationality' => $this->request->getVar('nationality'),
+                'vegetarian' => $this->request->getVar('vegetarian'),
+                'smoking' => $this->request->getVar('smoking')
+
+            ];
+            $model = new PartnerModel();
+            $model->insert($partnerdata);
+
+            return redirect()->to('dashboard/searchform');
+        }
+
+
+      }  
+
+    	return view('admin/partner_profile');
+    }
+
+  
 
 }
