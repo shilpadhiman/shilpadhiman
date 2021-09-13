@@ -4,19 +4,31 @@ use App\Libraries\Mailinfo;
 use App\Models\UserModel;
 use App\Models\ProfileModel;
 use App\Models\PartnerModel;
+use App\Models\Chatuser;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\IncomingRequest;
 
 use App\Controllers\BaseController;
 
-class Dashboard extends BaseController
+class Notification extends BaseController
 {
     public function index()
     {
-    return redirect()->to('dashboard/searchform');
+         $db= \Config\Database::connect();
+        $session = \Config\Services::session($config);
+        $request_id = $session->get('id');
+        $builder = $db->table('chatrequest');
+        $builder->select('*');
+        $builder->join('register', 'chatrequest.send_id = register.id');
+        $builder->where('request_id', $request_id);
+        $notificdata = $builder->get()->getResultArray();
+        $build= $this->commondata();
+        return view('admin/notification', array('notificdata'=>$notificdata, 'builddata'=>$build));
+
     }
-   /* public function searchform(){
-        $request =\Config\Services::request();
+   
+    protected function commondata(){
+         $request =\Config\Services::request();
         $searchData=[];
         //$request = service('request');
         if($this->request->getMethod()== 'get'){  
@@ -31,8 +43,6 @@ class Dashboard extends BaseController
             $agevar[0] ='18';
             $agevar[1]='100';
         }   
-
-
         $db = \Config\Database::connect();
         $builder = $db->table('register');
         $builder->select('*');
@@ -51,31 +61,18 @@ class Dashboard extends BaseController
         }else{
             $builder->where(['profile_details.age >' => $agevar[0], 'profile_details.age <' => $agevar[1]]);
         }
+
         $builddata = $builder->get()->getResultArray();
 
+        /*echo "<pre>"; print_r($builddata); die();*/
+
+        }
         
+         // return view('admin/notification', array('builddata'=>$builddata));
+        return $builddata;
+
+
+    }
+
+    
 }
-    return view('admin/dashboard', array('builddata'=>$builddata));
-
-    }
-*/
-    public function mailinfo(){
-
-        $slug= new Mailinfo();
-
-     echo $slug->mail('shilpa.dhiman762@gmail.com');
-       
-    }
-
-    public function sendrequest(){
-        $response = array(
-            'status' => 1,
-            'message' => 'Success'
-        );
-
-        echo json_encode($response);
-    }
-
-} 
-
-?>
