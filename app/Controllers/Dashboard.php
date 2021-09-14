@@ -5,6 +5,8 @@ use App\Models\UserModel;
 use App\Models\ProfileModel;
 use App\Models\PartnerModel;
 use App\Models\Chatrequest;
+use App\Models\Confirmchat;
+
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\IncomingRequest;
 use App\Controllers\BaseController;
@@ -31,7 +33,21 @@ class Dashboard extends BaseController
        }
        echo json_encode($response);
     }
- 
+
+    public function confirmation(){
+        $request = service('request');
+        $session = \Config\Services::session($config);
+        if($this->request->getMethod()== 'post'){
+        $data['received_id']= $this->request->getVar('id');
+        $data['confirm']= $this->request->getVar('confirm');       
+        $data['user_id'] = $session->get('id');
+         $confirmmodel = new Confirmchat();
+        $confirmmodel->insert($data);  
+
+    }
+    echo json_encode($response);
+    }
+
 
 } 
 

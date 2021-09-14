@@ -25,11 +25,15 @@ class Notification extends BaseController
         $data['notificdata'] = $builder->get()->getResultArray();
         $data['builddata']= $this->showuserdata();
         $data['approved']=$this->approved();
+        $data['chat']= $this->listconfirm();
+        $data['ndata']=$this->Notificationdata();
 
         return view('admin/notification', $data);
     }
 
     public function showuserdata(){
+         $session = \Config\Services::session($config);
+
     	 $request =\Config\Services::request();
 
         $searchData=[];
@@ -65,13 +69,18 @@ class Notification extends BaseController
             $builder->where(['profile_details.age >' => $agevar[0], 'profile_details.age <' => $agevar[1]]);
         }
 
-        $builddata = $builder->get()->getResultArray();
+         if($session->get('gender')=='Male'){
+         
+          $builder->where('register.gender','female');  
+        }
+        if($session->get('gender')=='Female'){
+         
+          $builder->where('register.gender','male');  
+        }
 
+        $builddata = $builder->get()->getResultArray();
         }
         return $builddata;
-
-
-
     }
         public function mailinfo(){
 
@@ -91,6 +100,31 @@ class Notification extends BaseController
         $reqdata = $builder->get()->getResultArray();
         return $reqdata;
     }    
+
+    public function listconfirm(){
+        $session = \Config\Services::session($config);
+        $request_id = $session->get('id');
+        $db= \Config\Database::connect();
+        $builder = $db->table('notification');
+        $builder->join('register', 'notification.received_id = register.id');
+        $builder->where('user_id', $request_id);
+        $cdata = $builder->get()->getResultArray();
+        return $cdata;    
+    }    
+
+
+      public function Notificationdata(){
+        $session = \Config\Services::session($config);
+        $request_id = $session->get('id');
+        $db= \Config\Database::connect();
+        $builder = $db->table('notification');
+        $builder->select('*');
+        $builder->where('user_id',$request_id);
+        $ndata = $builder->get()->getResultArray();
+        return $ndata;
+    }    
+
+
 
         }
    

@@ -3,11 +3,9 @@
 
 <div class="container">
 <div class="row">
+<div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1">
 <div class="panel panel-primary">
-<div class="panel-heading"><?= session()->get('name') ?>
-	<div class="logoutfor"><a href="<?= site_url('logout') ?>">Logout</a></div>
-</div>
- 
+ <h3>Personal Profile</h3>
 <div class="panel-body">
  <?php if (isset($validation)) : ?>
                     <div class="col-12">
@@ -81,4 +79,4 @@
 </div>
 </div>
 </div>
-
+</div>

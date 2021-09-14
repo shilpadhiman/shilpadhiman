@@ -181,7 +181,7 @@ public function login(){
             ];
             $model = new PartnerModel();
             $model->insert($partnerdata);
-            return redirect()->to('dashboard/searchform');
+            return redirect()->to('dashboard');
         }
       }  
     	return view('admin/partner_profile');

@@ -1,34 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 <?= $this->include('admin/header') ?>
-
-<style>
-.col-md-10 {
-margin-top: 30px;
-}
-label {
-    margin-top: 35px;
-}
-.logoutfor a {
-    color: currentColor;
-    float: right;
-}
-.logoutfor {
-    display: contents;
-}
-.row {
-    margin-top: 50px;
-}
-</style>
-
-
 <div class="container">
 <div class="row">
+<div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1">    
 <div class="panel panel-primary">
-<div class="panel-heading"><?= session()->get('name') ?>
-	<div class="logoutfor"><a href="<?= site_url('logout') ?>">Logout</a></div>
+<div class="panel-heading">
+<H3 align="center">PARTNER PROFILE</H3>
 </div>
- 
+
 <div class="panel-body">
  <?php if (isset($validation)) : ?>
                     <div class="col-12">
@@ -147,6 +127,7 @@ label {
 <input type="submit" name="submit" value="Submit" class="btn btn-info">
 </div>
 </form>
+</div>
 </div>
 </div>
 </div>

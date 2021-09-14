@@ -5,6 +5,8 @@
 <div class="container">
 <div class="row">
 <div class="col-lg-10 col-sm-10 col-12 offset-lg-1 offset-sm-1">
+  <div class="panel-heading"><?= session()->get('name') ?>
+</div>  
 <nav class="navbar navbar-expand-lg bg-info rounded">
 <a class="navbar-brand text-light" href="<?= site_url('logout')?>">Logout</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,6 +22,49 @@
 <li class="nav-item">
 <a class="nav-link text-light" href="#">Chat</a>
 </li>
+
+
+<li class="nav-item dropdown">
+<a class="nav-link text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Friends List
+</a>
+<ul class="dropdown-menu">
+<li class="head text-light bg-dark">
+<div class="row">
+<div class="col-lg-12 col-sm-12 col-12">
+<span>Friends List(3)</span>
+<a href="" class="float-right text-light">Mark all as read</a>
+</div>
+</li>
+<li class="notification-box">
+<div class="row"> 
+<?php 
+if(!empty($chat)){ 
+foreach($chat as $chatvalue){
+?>
+
+<div class="col-lg-3 col-sm-3 col-3 text-center">
+<img src="/images/profileimage.png" class="w-50 rounded-circle">
+</div>
+<div class="col-lg-8 col-sm-8 col-8">
+<strong class="text-info"><?php echo $chatvalue['name'];?></strong>
+<div>
+<span>DOB:<?php echo $chatvalue['year'];?></span>
+</div>
+<small class="text-warning"><?php echo $chatvalue['gender'];?></small>
+</div>
+
+
+<?php }}?>
+</div>
+</li>
+
+<li class="footer bg-dark text-center">
+<a href="" class="text-light">View All</a>
+</li>
+</ul>
+</li>
+
 <li class="nav-item dropdown">
 <a class="nav-link text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 <i class="fa fa-bell"></i>
@@ -36,10 +81,17 @@
 <div class="row">	
 <?php 
 if(!empty($notificdata)){
+  $nid=[];
 foreach($notificdata as $value){
+foreach($chat as $chatdata){
+
+  $nid[]=$chatdata['received_id'];
+}
+
 
 ?>
-
+<?php if(in_array($value['send_id'], $nid)){?>
+<?php } else {?>
 <div class="col-lg-3 col-sm-3 col-3 text-center">
 <img src="/images/profileimage.png" class="w-50 rounded-circle">
 </div>
@@ -49,10 +101,10 @@ foreach($notificdata as $value){
 <span>DOB:<?php echo $value['year'];?></span>
 </div>
 <small class="text-warning"><?php echo $value['gender'];?></small>
-
-<button type="button" class="btn btn-info">Confirm</button> <button type="button" class=" btn btn-warning">Reject</button>
+<button type="button" class="btnconfirm<?php echo $value['send_id'];?> btn-info" onclick="Confirmation('<?php echo $value['send_id'];?>')" >Confirm</button>
+<button type="button" class=" btn btn-warning">Reject</button>
 </div>
-<?php }}?>
+<?php }} }?>
 </div>
 </li>
 
@@ -61,6 +113,12 @@ foreach($notificdata as $value){
 </li>
 </ul>
 </li>
+
+
+
+
+
+
 </ul>
 </div>
 </nav>
@@ -111,30 +169,25 @@ foreach($notificdata as $value){
 </div>
 <input type="submit" class="btn btn-info" id="btninfo" name="search" value="search">
 </form>
-
-
 </br>
-
 <div class="row">
-
 <div class="col-md-12"> 
 <?php
 if(!empty($builddata)){
-
 $ids=[];
-foreach ($approved as $vue) {
-  
+foreach ($approved as $vue) { 
 $ids[]=$vue['request_id']; 
 }
+/*foreach($chat as $chatdata){
+
+  $ids[]=$chatdata['received_id'];
+}*/
 
 
 foreach ($builddata as $value) {
 ?> 
 
-
-
-<div class="column  col-md-3" >
-
+<div class="column  col-md-3">
 <div class="absd">
 <img src="<?php echo base_url();?>/images/profileimage.png" alt="Snow" style="width:30%">
 <span>Name:  <?php echo $value['name'];?></span>
@@ -143,10 +196,10 @@ foreach ($builddata as $value) {
 <span>Gender:  <?php echo $value['gender'];?></span>
 </div>
 
-<div class="buttoningorm"> 
+<div class="buttoningorm">
  <?php if (in_array($value['id'], $ids)) {?>
-<button type="button"  onclick="removeday('<?php echo $value['id']; ?>','<?php echo $value['email']; ?>')" class="btninfo<?php echo $value['id'];?> btn-warning" >Request sended</button>
-<?php }else{?>
+<button type="button" class="btn-warning" disabled="disabled">Request send</button>
+<?php } else {?>
 <button type="button"  onclick="removeday('<?php echo $value['id']; ?>','<?php echo $value['email']; ?>')" class="btninfo<?php echo $value['id'];?> btn-info" >Invite</button>
 <?php }?>
 
@@ -189,6 +242,35 @@ var url= '<?php echo base_url();?>';
    }  
  });      
 }
+</script>
+
+
+<script>
+ function Confirmation(id){
+    $.ajax({
+    type: "post",
+    url: url +'/dashboard/confirmation',
+    data: {id:id,confirm:'1'},
+    dataType: "json",
+    beforeSend:function(){
+        $('.btnconfirm').attr('disabled', 'disabled');
+    },
+    success: function (response) {
+      $('.btnconfirm'+id).attr('disabled', false);
+      $('.btnconfirm'+id).remove('btn-success');
+      $('.btnconfirm'+id).addClass('btn-warning');
+      $('.btnconfirm'+id).text('Accept');
+      $('.btnconfirm'+id).attr('disabled', true);
+      alert('Success');
+    },
+
+    error: function(error){
+     console.log(error); 
+   }  
+ }); 
+
+ } 
+
 </script>
 
 
