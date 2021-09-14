@@ -5,7 +5,15 @@ class Chat extends BaseController
 {
     public function index()
     {
-        echo "welcome to home";
-    return redirect()->to('chat');
+        $session = \Config\Services::session($config);
+        $request_id = $session->get('id');
+        $db= \Config\Database::connect();
+        $builder = $db->table('notification');
+        $builder->join('register', 'notification.received_id = register.id');
+        $builder->where('user_id', $request_id);
+        $cdata = $builder->get()->getResultArray();
+        $data['chat']=$cdata;
+        return view('admin/chat',$data); 
     }
+
 }

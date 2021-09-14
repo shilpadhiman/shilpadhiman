@@ -20,51 +20,8 @@
 <a class="nav-link text-light" href="#">Home<span class="sr-only">(current)</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link text-light" href="#">Chat</a>
+<a class="nav-link text-light" href="<?php echo base_url('chat');?>">Chat</a>
 </li>
-
-
-<li class="nav-item dropdown">
-<a class="nav-link text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-Friends List
-</a>
-<ul class="dropdown-menu">
-<li class="head text-light bg-dark">
-<div class="row">
-<div class="col-lg-12 col-sm-12 col-12">
-<span>Friends List(3)</span>
-<a href="" class="float-right text-light">Mark all as read</a>
-</div>
-</li>
-<li class="notification-box">
-<div class="row"> 
-<?php 
-if(!empty($chat)){ 
-foreach($chat as $chatvalue){
-?>
-
-<div class="col-lg-3 col-sm-3 col-3 text-center">
-<img src="/images/profileimage.png" class="w-50 rounded-circle">
-</div>
-<div class="col-lg-8 col-sm-8 col-8">
-<strong class="text-info"><?php echo $chatvalue['name'];?></strong>
-<div>
-<span>DOB:<?php echo $chatvalue['year'];?></span>
-</div>
-<small class="text-warning"><?php echo $chatvalue['gender'];?></small>
-</div>
-
-
-<?php }}?>
-</div>
-</li>
-
-<li class="footer bg-dark text-center">
-<a href="" class="text-light">View All</a>
-</li>
-</ul>
-</li>
-
 <li class="nav-item dropdown">
 <a class="nav-link text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 <i class="fa fa-bell"></i>

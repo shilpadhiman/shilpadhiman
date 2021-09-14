@@ -8,13 +8,14 @@ use App\Models\Chatuser;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\IncomingRequest;
 
+
 use App\Controllers\BaseController;
 
 class Notification extends BaseController
 {
     public function index()
-    {
 
+    {
          $db= \Config\Database::connect();
         $session = \Config\Services::session($config);
         $request_id = $session->get('id');

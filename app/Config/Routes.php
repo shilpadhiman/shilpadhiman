@@ -51,7 +51,9 @@ $routes->get('profile','User::profile');
 $routes->get('Inpartner','User::InPartner');
 
 $routes->get('mail','dashboard::mailinfo');
-$routes->get('chat','chat:: index');
+
+
+$routes->get('chat', 'chat::index');
 
 
 

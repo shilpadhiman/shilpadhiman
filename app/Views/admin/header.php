@@ -15,15 +15,6 @@ var url= '<?php echo base_url();?>';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 <link href="<?php echo base_url();?>/assets/css/matrimony.css" rel='stylesheet' type='text/css'/>
-
-<!-- <link href="<?php echo base_url();?>/assets/css/bootstrap-3.1.1.min.css" rel='stylesheet' type='text/css' /> -->
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-
-<!-- Custom Theme files -->
-<!-- 
-<link href='http://fonts.googleapis.com/css?family=Oswald:300,400,700' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
- -->
 <link href="<?php echo base_url();?>/assets/css/font-awesome.css" rel="stylesheet">
 <link href="<?php echo base_url();?>/assets/css/matrimony.css" rel='stylesheet' type='text/css'/>
 
