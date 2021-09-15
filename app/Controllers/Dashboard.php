@@ -48,6 +48,19 @@ class Dashboard extends BaseController
     echo json_encode($response);
     }
 
+    public function chatmessage(){
+        $request = service('request');
+        $session = \Config\Services::session($config);
+        if($this->request->getMethod()== 'post'){
+        $data['chat_message']= $this->request->getVar('chat_message');
+    }
+    echo "<pre>"; print_r($data);
+
+        json_encode($response);
+
+
+    }
+
 
 } 
 
