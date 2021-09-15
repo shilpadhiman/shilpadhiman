@@ -93,13 +93,16 @@ var url= '<?php echo base_url();?>';
 </script>
 <script>
 function mediachat(id,name) {
-alert(id);	
+var userid= id;
+var username=name;	
 }	
-
 </script>
 
 <script>
     $(document).on('click','#send_chat',function(){
+    	mediachat();
+ 
+
     var chat_message= $.trim($('#chat_message_area').html());
     if(chat_message != ''){
     $.ajax({
