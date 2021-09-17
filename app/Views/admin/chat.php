@@ -32,7 +32,7 @@
 
 		 <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:600px !important;">
 			  <?php                              
-		    foreach($chat as $chatvalue){?>
+		    foreach($chat as $chatvalue) {?>
 			<div class="media media-chat"><img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
 				<div class="media-body" onclick="mediachat('<?php echo $chatvalue['id'];?>','<?php echo $chatvalue['name'];?>' )">
 				  <p><strong class="text-info"><?php echo ucfirst($chatvalue['name']);?></strong>
@@ -47,10 +47,12 @@
 	    </div>
 
 	    <div class="col-md-6">
+	   
 		<div class="card card-bordered">
 		    <div class="card-header">
 			<h4 class="card-title"><strong>Chat</strong></h4> <a class="btn btn-xs btn-warning" href="#" data-abc="true">Let's Chat App</a>
 		    </div>
+
 		    <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;">
 			<div class="media media-chat"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
 			    <div class="send-body">
@@ -91,17 +93,19 @@
 <script type="text/javascript">
 var url= '<?php echo base_url();?>';
 </script>
-<script>
-function mediachat(id,name) {
-var userid= id;
-var username=name;	
-}	
-</script>
+	<script>
+		
+	</script>
 
 <script>
+	function mediachat(id,name) {
+	var userid= id;
+	var username=name;	
+	}
     $(document).on('click','#send_chat',function(){
-    	mediachat();
- 
+    /*	mediachat();*/
+
+    alert(this.id);
 
     var chat_message= $.trim($('#chat_message_area').html());
     if(chat_message != ''){
