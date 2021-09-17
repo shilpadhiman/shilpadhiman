@@ -17,6 +17,5 @@ var url= '<?php echo base_url();?>';
 <link href="<?php echo base_url();?>/assets/css/matrimony.css" rel='stylesheet' type='text/css'/>
 <link href="<?php echo base_url();?>/assets/css/font-awesome.css" rel="stylesheet">
 <link href="<?php echo base_url();?>/assets/css/matrimony.css" rel='stylesheet' type='text/css'/>
-
 <script src="<?php echo base_url();?>/assets/js/ajax.js"></script>
 </head>

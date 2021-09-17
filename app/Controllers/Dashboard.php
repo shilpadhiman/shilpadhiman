@@ -6,6 +6,7 @@ use App\Models\ProfileModel;
 use App\Models\PartnerModel;
 use App\Models\Chatrequest;
 use App\Models\Confirmchat;
+use App\Models\Chatmsg;
 
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -48,19 +49,23 @@ class Dashboard extends BaseController
     echo json_encode($response);
     }
 
-    public function chatmessage(){
+    public function chatmassage(){
         $request = service('request');
+
+        echo "<pre>"; print_r($_GET['chat_massage']); die();
+
         $session = \Config\Services::session($config);
-        if($this->request->getMethod()== 'post'){
-        $data['chat_message']= $this->request->getVar('chat_message');
+        if($this->request->getMethod()== 'get'){
+        $data['chat_massage']= $this->request->getVar('chat_massage');
+        $data['user_id']= $this->request->getVar('user_id');
+        $data['recevied_id']= $this->request->getVar('recevied_id');
+         $confirmmodel = new Chatmsg();         
+        $confirmmodel->insert($data); 
+  
     }
-    echo "<pre>"; print_r($data);
-
-        json_encode($response);
-
-
-    }
-
+json_encode($response);
+}
+    
 
 } 
 
