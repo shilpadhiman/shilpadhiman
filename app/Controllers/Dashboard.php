@@ -51,11 +51,8 @@ class Dashboard extends BaseController
 
     public function chatmassage(){
         $request = service('request');
-
-        echo "<pre>"; print_r($_GET['chat_massage']); die();
-
         $session = \Config\Services::session($config);
-        if($this->request->getMethod()== 'get'){
+        if($this->request->getMethod()== 'post'){
         $data['chat_massage']= $this->request->getVar('chat_massage');
         $data['user_id']= $this->request->getVar('user_id');
         $data['recevied_id']= $this->request->getVar('recevied_id');
