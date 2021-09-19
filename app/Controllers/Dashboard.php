@@ -62,6 +62,17 @@ class Dashboard extends BaseController
     }
 json_encode($response);
 }
+
+    public function fetchdata(){
+        $db= \Config\Database::connect();
+        $session = \Config\Services::session($config);
+        $user_id = $session->get('id');
+        $model = new Chatmsg(); 
+        $user = $model->where('user_id', $user_id)->first();
+         $reqdata = $user->get()->getResultArray();
+         echo "<pre>"; print_r($reqdata); die();
+         return view('admin/chat', $reqdata);
+    }
     
 
 } 

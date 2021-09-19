@@ -48,8 +48,12 @@
 
 	    <div class="col-md-6">
      
+
+
 	    	<div id="chats"> 
-			<div class="chat_window" id="chat_4321"></div> 
+			
+
+            <div class="chat_window" id="chat_4321"></div> 
 			</div>
     
 	    </div>
