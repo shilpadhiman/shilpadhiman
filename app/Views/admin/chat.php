@@ -101,19 +101,19 @@ var url= '<?php echo site_url();?>';
     //send messages
     var user_id = '<?= session()->get('id') ?>';
     var b = $("#userid").val();
-/*
-    var auto_refresh = setInterval(function () {
-
-            $.getJSON("Chat.php?user_id="+user_id,function(data){
-            $.each(data.posts, function(i,data) {               
+  /*  var auto_refresh = setInterval(function () {*/
+            $.getJSON("chat/fetchdata?user_id="+user_id,function(data){
+    
+            $.each(data.posts, function(i,data) {
+                
                 if(b != data.id)  { 
                     var div_data="<span id='"+data.id+"'>"+data.user_id+": "+data.msg+"</span>";                        
                     $(div_data).appendTo("#chat_"+user_id);
                 }
             });
         });
-    }, 2000);
-*/
+    /*}, 2000);*/
+
 /*setInterval(function(){ alert("Hello"); }, 3000);*/
 
 
@@ -146,12 +146,12 @@ $(document).on("click","#send_chat", function(){
              var html='<div class="col-md-12 alert alert-warning">';
              html += chat_message;
              html +='</div>';
-             $('.send-body').html(html);
+             $('.send-body').append(html);
           }
         });
     }else{
     alert('type soomething');
     }
     });
-
+    
 </script>
