@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class Chatmsg extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'chat_massage';
+	protected $table                = 'chat_message';
 	protected $primaryKey           = 'chat_msg_id';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['chat_massage','user_id','recevied_id'];
+	protected $allowedFields        = ['chat_message','user_id','recevied_id'];
 
 	// Dates
 	protected $useTimestamps        = false;

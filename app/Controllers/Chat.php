@@ -17,20 +17,23 @@ class Chat extends BaseController
         $cdata = $builder->get()->getResultArray();
         $data['chat']=$cdata;
         $data['reqdata']= $this->fetchdata();
-         echo "<pre>"; print_r($user_id); die();
+        //echo "<pre>"; print_r($data['reqdata']); die();
         return view('admin/chat',$data); 
     }
 
 
      public function fetchdata(){
+        //$json_array=array();
         $session = \Config\Services::session($config);
         $user_id = $session->get('id');      
         $model = new Chatmsg(); 
-        $user = $model->where('user_id', $user_id);
-         $reqdata = $user->get()->getResultArray();
-         
+        $model->where('user_id', $user_id);
+        $reqdata = $model->get()->getResultArray();
          return $reqdata;
     }
+
+    
+
     
 
 }
