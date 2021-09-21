@@ -27,11 +27,8 @@ class Chat extends BaseController
         $session = \Config\Services::session($config);
         $user_id = $session->get('id');      
         $model = new Chatmsg(); 
-        $model->where('user_id', $user_id);
-        $reqdata = $model->get()->getResultArray();
-        //$model->get()->getResultArray();
-        //echo "<pre>"; print_r($model->get()->getResultArray()); die();     
-         return view('admin/chat', $reqdata);
+        $model->where('user_id', $user_id);  
+         return $model->get()->getResultArray();
     }
 
     

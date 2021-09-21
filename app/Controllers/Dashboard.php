@@ -49,9 +49,9 @@ class Dashboard extends BaseController
     echo json_encode($response);
     }
 
-    public function chatmessage(){
-        
+    public function chatmessage(){        
         $request = service('request');
+        $allMessages = [];
         // return json_encode($_POST);
         // $session = \Config\Services::session($config);
         if($this->request->getMethod()== 'post')
@@ -63,7 +63,20 @@ class Dashboard extends BaseController
             $q = $confirmmodel->insert($data); 
             if($q)
             {
+                // Filter messages
+                $filter_messages = [];
                 $allMessages =  $this->collect_message($this->request->getVar('user_id'), $this->request->getVar('recevied_id'));
+                // foreach($allMessages as $key=>$mess){
+                //     if($mess['user_id'] == $this->request->getVar('user_id'))
+                //     {
+                //         // Message sent by us
+                //         $filter_messages['sent_messages'][] = $mess;
+                //     }else
+                //     {
+                //         $filter_messages['recieved_messages'][] = $mess;
+                //     }
+                // }
+                // print"<pre>";print_r($allMessages);die;
                 $res['status'] = 1;
                 $res['message'] = "Data found";
                 $res['data'] = $allMessages;    
@@ -88,13 +101,27 @@ class Dashboard extends BaseController
     public function collect_message($sender_id, $reciever_id)
     {
         $model = new Chatmsg(); 
+        // Sent messae
         $model->where(['user_id' => $sender_id, 'recevied_id' => $reciever_id]);
-        return $model->get()->getResultArray();
+        $mess['sent'] =  $model->get()->getResultArray();
+
+        // Reciev
+        $model->where(['user_id' => $reciever_id , 'recevied_id' => $sender_id]);
+        $mess['recieve'] =  $model->get()->getResultArray();
+        return $mess;
     }
 
+    
+    public function fetch_message(){
+        $session = \Config\Services::session($config);
+        $recevied_id = $session->get('id');      
+        $model = new Chatmsg(); 
+        $model->where('recevied_id', $recevied_id);  
+        $data=$model->get()->getResultArray();
+           header('Content-Type: application/json');
+            echo json_encode( $data);
 
-   
-
+    }
 } 
 
 ?>
