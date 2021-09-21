@@ -54,6 +54,7 @@
 
             <div class="chat_window" id="chat_4321">
             </div>
+            <div class="user_details"></div>
            
 			</div>
                 
@@ -152,6 +153,27 @@ $(document).on("click","#send_chat", function(){
     }else{
     alert('type soomething');
     }
+     fetch_user();
+
+ setInterval(function(){
+  update_last_activity();
+  fetch_user();
+ }, 5000);
+
+ function fetch_user()
+ {
+  $.ajax({
+   url:url +'/chat/fetchdata',
+   method:"POST",
+   success:function(data){
+    //$('.send-body').html(data);
+   }
+  })
+ } 
+
+
+
+
     });
     
 </script>
