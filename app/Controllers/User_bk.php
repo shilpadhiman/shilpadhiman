@@ -3,59 +3,45 @@
 namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
-use App\Models\googleuser;
 use App\Models\ProfileModel;
 use App\Models\PartnerModel;
-//use App\Libraries\vendor\autoload;
-use Google\Client as Google_Client;
-use Google_Service_Oauth2;
- 
+
 class User extends BaseController
 { 
 public function __construct(){
 $session = \Config\Services::session($config); 
 }
+
 public function login(){
-    $data = [];
-    $request = service('request');	
-    $model= new googleuser();
-    require_once APPPATH . 'Libraries\vendor\autoload.php';
-        $client = new Google_Client();
-        $client->setClientId("844745712469-lv1d6gfraaqm6kgsknua0pcl92b9dqgm.apps.googleusercontent.com");
-        $client->setClientSecret("FCTj3Hagm7vyp_ME7Fm6EQFj");
-        $client->setRedirectUri(base_url().'/login');
-        $client->addScope('email');
-        $client->addScope('profile');
-        $token=$this->request->getVar('code');
-        /*echo "<pre>"; print_r(json_encode($token)); die();*/
+	$data = [];
+	$request = service('request');
+	if ($this->request->getMethod() == 'post') {
+	$rules = [
+	'email' => 'required|min_length[6]|max_length[50]|valid_email',
+	'password' => 'required|min_length[3]|max_length[255]|validateUser[email,password]',
+	];
+	
+	$errors = [
+	'password' => [
+	'validateUser' => 'Email or Password don\'t match'
+	]
+	];
+	 if (!$this->validate($rules,$errors)) {
+	 $data['validation'] = $this->validator;
+	 
+	 }else{
+	 $model = new UserModel();
+	 
+	 $user = $model->where('email', $this->request->getVar('email'))->first();
+ 	
+ 	 $this->setUserSession($user);
+		
+	//$session->setFlashdata('success', 'Successful Registration');
+ 	return redirect()->to('dashboard');
+ 	
 
-        if(isset($token)){
-
-            print_r($client->fetchAccessTokenWithAuthCode(json_encode($token))); die();
-
-            $token= $client->fetchAccessTokenWithAuthCode($this->request->getVar('code'));
-            echo "<pre>"; print_r($token); die();
-
-            if(!$token['error']){
-                $client->setAccessToken($token['access_token']);
-                $session = session();
-                $this->setUserSession('access_token', $token['access_token']);
-
-              // $this->session->set('access_token', $token['access_token']);
-
-                $google_service = new Google_Service_Oauth2($google_client);
-
-                $data = $google_service->userinfo->get();
-                
-              
-            }
-
-        }
-       /* if(!$this->session->get('access_token')){*/
-              $data['loginbtn']=$client->createAuthurl();
-        /*}*/
-
-
+ 	 }
+	 }
  	return view('admin/register', $data);
  	}
 

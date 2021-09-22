@@ -52,7 +52,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="col-sm-2">
                         <button style="font-weight:600" class="btn btn-sm btn-success">Login</button>
                     </div>
-                </div>
+                    <div class="ggg">
+                    <?php if (isset($loginbtn)):?>  
+                    <a href="<?= $loginbtn; ?>"><i class="fab fa-google me-2"></i>Sign In with google</a>
+                  <?php endif; ?>
+                    </div>
+                    </div>
                 
               </form>  
               </div>
