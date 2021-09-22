@@ -7,7 +7,7 @@ use App\Models\googleuser;
 use App\Models\ProfileModel;
 use App\Models\PartnerModel;
 //use App\Libraries\vendor\autoload;
-use Google\Client as Google_Client;
+use Google\Client as client;
 use Google_Service_Oauth2;
  
 class User extends BaseController
@@ -20,40 +20,29 @@ public function login(){
     $request = service('request');	
     $model= new googleuser();
     require_once APPPATH . 'Libraries\vendor\autoload.php';
-        $client = new Google_Client();
-        $client->setClientId("844745712469-lv1d6gfraaqm6kgsknua0pcl92b9dqgm.apps.googleusercontent.com");
-        $client->setClientSecret("FCTj3Hagm7vyp_ME7Fm6EQFj");
+        $client = new \Google_Client();
+        $client->setClientId("844745712469-31mhu92gpe8bg4fjq1c8qt63ugrjuvdb.apps.googleusercontent.com");
+        $client->setClientSecret("fSzacbZNVJ6nFhH0EHCFzoqR");       
         $client->setRedirectUri(base_url().'/login');
         $client->addScope('email');
         $client->addScope('profile');
-        $token=$this->request->getVar('code');
-        /*echo "<pre>"; print_r(json_encode($token)); die();*/
-
-        if(isset($token)){
-
-            print_r($client->fetchAccessTokenWithAuthCode(json_encode($token))); die();
-
-            $token= $client->fetchAccessTokenWithAuthCode($this->request->getVar('code'));
-            echo "<pre>"; print_r($token); die();
-
+        $tokenid=$this->request->getVar('code');
+        $session = session();
+        if(isset($tokenid)){
+            $token= $client->fetchAccessTokenWithAuthCode($tokenid);
+        
             if(!$token['error']){
                 $client->setAccessToken($token['access_token']);
-                $session = session();
-                $this->setUserSession('access_token', $token['access_token']);
-
-              // $this->session->set('access_token', $token['access_token']);
-
-                $google_service = new Google_Service_Oauth2($google_client);
-
-                $data = $google_service->userinfo->get();
                 
-              
+               $session->set('access_token', $token['access_token']);
+                $google_service = new Google_Service_Oauth2($client);
+                $data = $google_service->userinfo->get();
+                echo "<pre>"; print_r($data); die();             
             }
-
         }
-       /* if(!$this->session->get('access_token')){*/
+        if($session->get('access_token')){
               $data['loginbtn']=$client->createAuthurl();
-        /*}*/
+        }
 
 
  	return view('admin/register', $data);
@@ -116,7 +105,7 @@ public function login(){
 	private function setUserSession($user)
 	{
 	$data = [
-	'id' => $user['id'],
+	'user_id' => $user['user_id'],
 	'name' => $user['name'],
 	'mobile' => $user['mobile'],
 	'email' => $user['email'],
