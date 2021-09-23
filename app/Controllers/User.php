@@ -15,6 +15,44 @@ class User extends BaseController
 public function __construct(){
 $session = \Config\Services::session($config); 
 }
+
+
+    public function googlelogin(){
+    $datalogin = [];
+    $request = service('request');
+    if ($this->request->getMethod() == 'post') {
+    $rules = [
+    'email' => 'required|min_length[6]|max_length[50]|valid_email',
+    'password' => 'required|min_length[3]|max_length[255]|validateUser[email,password]',
+    ];
+    
+    $errors = [
+    'password' => [
+    'validateUser' => 'Email or Password don\'t match'
+    ]
+    ];
+     if (!$this->validate($rules,$errors)) {
+     $datalogin['validation'] = $this->validator;
+     
+     }else{
+     $model = new UserModel();
+     
+     $user = $model->where('email', $this->request->getVar('email'))->first();
+    
+     $this->setUserSession($user);
+        
+    //$session->setFlashdata('success', 'Successful Registration');
+    return redirect()->to('dashboard');
+    
+
+     }
+     }
+    return $datalogin;
+    }
+
+
+
+
 public function login(){
     $data = [];
     $request = service('request');	
@@ -37,9 +75,9 @@ public function login(){
                 $gdata = $google_service->userinfo->get();           
                 $currentTime=date("y-m-d H:i:s");
                 $userdata=array();
-                $model= new googleuser();
-                
+                $model= new googleuser();                
                 if($model->isAlreadyRegister($gdata['id'])){
+
                 $userdata=[
                     'oauth_id'=>$gdata['id'],
                     'name'=> $gdata['name'],
@@ -49,6 +87,7 @@ public function login(){
 
                 ];
              $model->updateuserdata($userdata, $gdata['id']);
+              return redirect()->to('dashboard');
 
              }else{
                  $userdata=[
@@ -56,24 +95,23 @@ public function login(){
                     'name'=> $gdata['name'],
                     'email'=> $gdata['email'],
                     'profile_img'=>$gdata['picture'],
-                    'updated_at'=>$currentTime
+                    'created_at'=>$currentTime
 
                 ];
                 $model->insertuserdata($userdata, $gdata['id']);
+                 //$session->set('userlogin', $userdata);
+                return redirect()->to('dashboard');
              }
             
 
               }
-        }else{
-             $session->set('loggeduserdata', $userdata);
-             return redirect()->to('dashboard'); 
         }
-
             
-        // if($session->get('access_token')){
+        //if($session->get('access_token')){
               $data['loginbtn']=$client->createAuthurl();
-        /*}*/
+        //}
 
+      $data['login']=$this->googlelogin();        
 
  	return view('admin/register', $data);
  	}

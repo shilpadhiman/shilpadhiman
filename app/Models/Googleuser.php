@@ -17,7 +17,7 @@ class Googleuser extends Model
 	protected $allowedFields        = ['oauth_id','name','email','profile_img','created_at','updated_at'];
 
 	function isAlreadyRegister($authid){
-		return $this->db->table('user')->getwhere(['oauth_id'=>$oauth_id])->getRowArray()>0?true:false;
+		return $this->db->table('user')->getWhere(['oauth_id'=>$oauth_id]);
 	}
 
 	function updateuserdata($userdata, $authid){
