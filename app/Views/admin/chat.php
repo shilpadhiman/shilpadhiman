@@ -34,7 +34,7 @@
 		    foreach($chat as $chatvalue) {?>
 			<div class="media media-chat">
             <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">                
-				<div class="media-body" id="receivermsg" onclick="mediachat('<?php echo $chatvalue['id'];?>','<?php echo $chatvalue['name'];?>' )">
+				<div class="media-body" id="receivermsg" onclick="mediachat('<?php echo $chatvalue['id'];?>','<?php echo $chatvalue['name'];?>')">
 				  <p><strong class="text-info"><?php echo ucfirst($chatvalue['name']);?></strong>
 				    <span>DOB:<?php echo $chatvalue['year'];?></span>
 				    <small class="text-warning"><?php echo ucfirst($chatvalue['country']);?></small>
@@ -70,22 +70,6 @@
 	</div>
     </div>
 </div>
-<!-- Latest compiled and minified CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
-
-<!-- Optional theme -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"  crossorigin="anonymous">
- -->
-
-<!-- Latest compiled and minified JavaScript -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"  crossorigin="anonymous"></script> -->
-
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script -->>
-
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.4.3/jquery.min.js" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" crossorigin="anonymous"></script> -->
 
 <script type="text/javascript">
 var url= '<?php echo site_url();?>';

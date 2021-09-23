@@ -23,14 +23,14 @@ class Dashboard extends BaseController
     public function sendrequest(){
         $request = service('request');
         $session = \Config\Services::session($config);
-        $data=[];
+        //$rdata=[];
         if($this->request->getMethod()== 'post'){
-        $data['send_id'] = $session->get('id');    
-        $data['request_id'] = $this->request->getVar('id');
-        $data['status']= $this->request->getVar('status');
-        $data['email']= $this->request->getVar('email');
+        $rdata['send_id'] = $session->get('user_id');    
+        $rdata['request_id'] = $this->request->getVar('id');
+        $rdata['status']= $this->request->getVar('status');
+        $rdata['email']= $this->request->getVar('email');
         $requestmodel = new Chatrequest();
-        $requestmodel->insert($data);          
+        $requestmodel->insert($rdata);          
        }
        echo json_encode($response);
     }
@@ -41,7 +41,7 @@ class Dashboard extends BaseController
         if($this->request->getMethod()== 'post'){
         $data['received_id']= $this->request->getVar('id');
         $data['confirm']= $this->request->getVar('confirm');       
-        $data['user_id'] = $session->get('id');
+        $data['user_id'] = $session->get('user_id');
          $confirmmodel = new Confirmchat();
         $confirmmodel->insert($data);  
 
@@ -114,7 +114,7 @@ class Dashboard extends BaseController
     
     public function fetch_message(){
         $session = \Config\Services::session($config);
-        $recevied_id = $session->get('id');      
+        $recevied_id = $session->get('user_id');      
         $model = new Chatmsg(); 
         $model->where('recevied_id', $recevied_id);  
         $data=$model->get()->getResultArray();

@@ -18,7 +18,7 @@ class Notification extends BaseController
     {
          $db= \Config\Database::connect();
         $session = \Config\Services::session($config);
-        $request_id = $session->get('id');
+        $request_id = $session->get('user_id');
         $builder = $db->table('chatrequest');
         $builder->select('*');
         $builder->join('register', 'chatrequest.send_id = register.id');
@@ -34,9 +34,7 @@ class Notification extends BaseController
 
     public function showuserdata(){
          $session = \Config\Services::session($config);
-
     	 $request =\Config\Services::request();
-
         $searchData=[];
         //$request = service('request');
         if($this->request->getMethod()== 'get'){  
@@ -93,7 +91,7 @@ class Notification extends BaseController
 
         public function approved(){
         $session = \Config\Services::session($config);
-        $request_id = $session->get('id');
+        $request_id = $session->get('user_id');
         $db= \Config\Database::connect();
         $builder = $db->table('chatrequest');
         $builder->select('*');
@@ -104,7 +102,7 @@ class Notification extends BaseController
 
     public function listconfirm(){
         $session = \Config\Services::session($config);
-        $request_id = $session->get('id');
+        $request_id = $session->get('user_id');
         $db= \Config\Database::connect();
         $builder = $db->table('notification');
         $builder->join('register', 'notification.received_id = register.id');
@@ -116,7 +114,7 @@ class Notification extends BaseController
 
       public function Notificationdata(){
         $session = \Config\Services::session($config);
-        $request_id = $session->get('id');
+        $request_id = $session->get('user_id');
         $db= \Config\Database::connect();
         $builder = $db->table('notification');
         $builder->select('*');

@@ -9,7 +9,7 @@ class Chat extends BaseController
     public function index()
     {
         $session = \Config\Services::session($config);
-        $request_id = $session->get('id');
+        $request_id = $session->get('user_id');
         $db= \Config\Database::connect();
         $builder = $db->table('notification');
         $builder->join('register', 'notification.received_id = register.id');
@@ -25,7 +25,7 @@ class Chat extends BaseController
      public function fetchdata(){
         //$json_array=array();
         $session = \Config\Services::session($config);
-        $user_id = $session->get('id');      
+        $user_id = $session->get('user_id');      
         $model = new Chatmsg(); 
         $model->where('recevied_id', $user_id);  
         $reqdata= $model->get()->getResultArray();

@@ -8,7 +8,7 @@ class Googleuser extends Model
 {
 	protected $DBGroup              = 'default';
 	protected $table                = 'user';
-	protected $primaryKey           = 'user_id';
+	protected $primaryKey           = 'login_id';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'array';
@@ -17,7 +17,8 @@ class Googleuser extends Model
 	protected $allowedFields        = ['oauth_id','name','email','profile_img','created_at','updated_at'];
 
 	function isAlreadyRegister($authid){
-		return $this->db->table('user')->getWhere(['oauth_id'=>$oauth_id]);
+	
+	return $this->db->table('user')->getWhere(['oauth_id'=>$authid])->getRowArray();
 	}
 
 	function updateuserdata($userdata, $authid){

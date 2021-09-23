@@ -15,9 +15,7 @@ class User extends BaseController
 public function __construct(){
 $session = \Config\Services::session($config); 
 }
-
-
-    public function googlelogin(){
+    public function Ulogin(){
     $datalogin = [];
     $request = service('request');
     if ($this->request->getMethod() == 'post') {
@@ -36,25 +34,20 @@ $session = \Config\Services::session($config);
      
      }else{
      $model = new UserModel();
-     
      $user = $model->where('email', $this->request->getVar('email'))->first();
     
      $this->setUserSession($user);
-        
-    //$session->setFlashdata('success', 'Successful Registration');
-    return redirect()->to('dashboard');
-    
+         return redirect()->to('dashboard');
+     }
 
      }
-     }
-    return $datalogin;
+    return view('admin/register', $datalogin);
     }
 
 
-
-
 public function login(){
-    $data = [];
+     $db = \Config\Database::connect();
+    $gdata = [];
     $request = service('request');	
     require_once APPPATH . 'Libraries\vendor\autoload.php';
         $client = new \Google_Client();
@@ -72,12 +65,12 @@ public function login(){
                 $client->setAccessToken($token['access_token']);               
                $session->set('access_token', $token['access_token']);
                 $google_service = new Google_Service_Oauth2($client);
-                $gdata = $google_service->userinfo->get();           
+                $gdata = $google_service->userinfo->get();                
                 $currentTime=date("y-m-d H:i:s");
                 $userdata=array();
-                $model= new googleuser();                
-                if($model->isAlreadyRegister($gdata['id'])){
+                $model= new googleuser();
 
+                if($model->isAlreadyRegister($gdata['id'])){
                 $userdata=[
                     'oauth_id'=>$gdata['id'],
                     'name'=> $gdata['name'],
@@ -88,7 +81,6 @@ public function login(){
                 ];
              $model->updateuserdata($userdata, $gdata['id']);
               return redirect()->to('dashboard');
-
              }else{
                  $userdata=[
                     'oauth_id'=>$gdata['id'],
@@ -99,9 +91,9 @@ public function login(){
 
                 ];
                 $model->insertuserdata($userdata, $gdata['id']);
-                 //$session->set('userlogin', $userdata);
+                 $session->set('userlogin', $userdata);
                 return redirect()->to('dashboard');
-             }
+            }
             
 
               }
@@ -111,7 +103,7 @@ public function login(){
               $data['loginbtn']=$client->createAuthurl();
         //}
 
-      $data['login']=$this->googlelogin();        
+      //$data['login']=$this->user_login();        
 
  	return view('admin/register', $data);
  	}
@@ -173,7 +165,7 @@ public function login(){
 	private function setUserSession($user)
 	{
 	$data = [
-	'user_id' => $user['user_id'],
+	'user_id' => $user['id'],
 	'name' => $user['name'],
 	'mobile' => $user['mobile'],
 	'email' => $user['email'],
@@ -187,7 +179,7 @@ public function login(){
 		
  public function profile(){
   /*  $session = \Config\Services::session($config);
-    $userid= $session->get('id');*/
+    $userid= $session->get('user_id');*/
 	     $request = service('request');
        	$method = $request->getMethod();
 
@@ -204,7 +196,7 @@ public function login(){
         }else{
         		$session = \Config\Services::session($config);   	
                  $profiledata=[
-                 'id' => $session->get('id'),
+                 'id' => $session->get('user_id'),
                 'education' => $this->request->getVar('edu'),
                 'age' => $this->request->getVar('age'),
                 'hobbies' => $this->request->getVar('Hobbies'),
@@ -238,7 +230,7 @@ public function login(){
         }else{
         		$session = \Config\Services::session($config);   	
                  $partnerdata=[
-                 'id' => $session->get('id'),
+                 'id' => $session->get('user_id'),
                 'interest' => $this->request->getVar('interest'),
                 'education_level' => $this->request->getVar('education_level'),
                 'income' => $this->request->getVar('income'),
