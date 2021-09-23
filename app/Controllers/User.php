@@ -18,7 +18,6 @@ $session = \Config\Services::session($config);
 public function login(){
     $data = [];
     $request = service('request');	
-    $model= new googleuser();
     require_once APPPATH . 'Libraries\vendor\autoload.php';
         $client = new \Google_Client();
         $client->setClientId("844745712469-31mhu92gpe8bg4fjq1c8qt63ugrjuvdb.apps.googleusercontent.com");
@@ -32,17 +31,48 @@ public function login(){
             $token= $client->fetchAccessTokenWithAuthCode($tokenid);
         
             if(!$token['error']){
-                $client->setAccessToken($token['access_token']);
-                
+                $client->setAccessToken($token['access_token']);               
                $session->set('access_token', $token['access_token']);
                 $google_service = new Google_Service_Oauth2($client);
-                $data = $google_service->userinfo->get();
-                echo "<pre>"; print_r($data); die();             
-            }
+                $gdata = $google_service->userinfo->get();           
+                $currentTime=date("y-m-d H:i:s");
+                $userdata=array();
+                $model= new googleuser();
+                
+                if($model->isAlreadyRegister($gdata['id'])){
+                $userdata=[
+                    'oauth_id'=>$gdata['id'],
+                    'name'=> $gdata['name'],
+                    'email'=> $gdata['email'],
+                    'profile_img'=>$gdata['picture'],
+                    'updated_at'=>$currentTime
+
+                ];
+             $model->updateuserdata($userdata, $gdata['id']);
+
+             }else{
+                 $userdata=[
+                    'oauth_id'=>$gdata['id'],
+                    'name'=> $gdata['name'],
+                    'email'=> $gdata['email'],
+                    'profile_img'=>$gdata['picture'],
+                    'updated_at'=>$currentTime
+
+                ];
+                $model->insertuserdata($userdata, $gdata['id']);
+             }
+            
+
+              }
+        }else{
+             $session->set('loggeduserdata', $userdata);
+             return redirect()->to('dashboard'); 
         }
-        if($session->get('access_token')){
+
+            
+        // if($session->get('access_token')){
               $data['loginbtn']=$client->createAuthurl();
-        }
+        /*}*/
 
 
  	return view('admin/register', $data);
