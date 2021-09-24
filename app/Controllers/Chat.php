@@ -29,10 +29,8 @@ class Chat extends BaseController
         $model = new Chatmsg(); 
         $model->where('recevied_id', $user_id);  
         $reqdata= $model->get()->getResultArray();
-        return $$reqdata;
+        return $reqdata;
     }
-
-    
 
     
 

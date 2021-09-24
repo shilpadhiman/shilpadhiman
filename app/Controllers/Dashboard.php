@@ -66,17 +66,7 @@ class Dashboard extends BaseController
                 // Filter messages
                 $filter_messages = [];
                 $allMessages =  $this->collect_message($this->request->getVar('user_id'), $this->request->getVar('recevied_id'));
-                // foreach($allMessages as $key=>$mess){
-                //     if($mess['user_id'] == $this->request->getVar('user_id'))
-                //     {
-                //         // Message sent by us
-                //         $filter_messages['sent_messages'][] = $mess;
-                //     }else
-                //     {
-                //         $filter_messages['recieved_messages'][] = $mess;
-                //     }
-                // }
-                // print"<pre>";print_r($allMessages);die;
+               
                 $res['status'] = 1;
                 $res['message'] = "Data found";
                 $res['data'] = $allMessages;    
@@ -113,15 +103,22 @@ class Dashboard extends BaseController
 
     
     public function fetch_message(){
+        $sender_id= $this->request->getVar('id');
         $session = \Config\Services::session($config);
         $recevied_id = $session->get('user_id');      
         $model = new Chatmsg(); 
-        $model->where('recevied_id', $recevied_id);  
-        $data=$model->get()->getResultArray();
-           header('Content-Type: application/json');
-            echo json_encode( $data);
+        $model->where(['recevied_id'=> $recevied_id, 'user_id'=>$sender_id]);  
+        $data['chat_data']=$model->get()->getResultArray();
+
+        $model->where(['user_id' => $recevied_id , 'recevied_id' => $sender_id]);
+        $data['chat_recieve']=$model->get()->getResultArray();     
+          header('Content-Type: application/json');
+          echo json_encode($data);
 
     }
+
+
+
 } 
 
 ?>

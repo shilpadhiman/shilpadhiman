@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html>
 <?= $this->include('admin/header') ?>
+
+<?php
+if(isset($chat[0]) && !empty($chat[0]) ){
+    $first_user_id = $chat[0]['user_id'];
+    $first_name = $chat[0]['name'];
+}else{
+    $first_user_id = 0;
+    $first_name = '';
+}
+
+?>
+
+
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="<?php echo base_url();?>/assets/css/chat.css" rel='stylesheet' type='text/css'/>
@@ -66,31 +79,61 @@
 	</div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 var url= '<?php echo site_url();?>';
 </script>
-
-<script>
-$(document).ready(function(){
-    mediachat(id,username);
-alert(id);
-
-});
-
-</script>
-
 <script>
 function mediachat(id,username){
       $("#chats").html('<div class="card card-bordered"><div class="chat_window_'+id+'" data-touserid="'+id+'" id="chat_box'+id+'"><div class="card-header"><h4 class="card-title"><strong>'+username+'</strong></h4><a class="btn btn-xs btn-warning" href="#" data-abc="true">Lets chat</a></div> <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;"><div class="media media-chat"><img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="..."><div class="received_withd_msg"></div></div><div class="media media-send"><div class= "send-body"></div></div></div><div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div></div></div><div class="publisher bt-1 border-light"><img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="..."><div id="chat_message_area" contenteditable class="form-control" ></div><span class="publisher-btn file-group"><i class="fa fa-paperclip file-browser"></i><input type="file"> </span> <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a><button type="button" class="publisher-btn text-info" name="send_chat" id="send_chat"><i class="fa fa-paper-plane"></i></button><input type="hidden" name="uname" value='+id+' id="uname"></div></div></div>');
+
+        $.ajax({
+          type: "post",
+          url:  url +'/dashboard/fetch_message',
+          data: {id:id},
+          dataType: "json",
+          success: function (json) {
+           
+           console.log(json.chat_data);
+
+            var html= "";
+             if(json.chat_data){
+             json.chat_data.forEach((ad) => {
+                console.log('ad',ad);
+                 html += '<div class="col-md-12 alert alert-info" align="left">';                 
+                 html += ad.chat_message;
+                 html +='</div>';
+             });
+             $('.received_withd_msg').html(html);
+             }else{
+                //not found
+             }
+             var html2= "";
+             if(json.chat_recieve){
+             json.chat_recieve.forEach((ab) => {
+                console.log('ab',ab);
+                 html2 += '<div class="col-md-12 alert alert-warning" align="left">';                 
+                 html2 += ab.chat_message;
+                 html2 +='</div>';
+             });
+             $('.send-body').html(html2);
+             }else{
+                //not found
+             }
+
+   
+     
           }
 
+        });
+        }
+        
+        /*$(document).ready(function(){
+        setTimeout(mediachat(id,username),1000);
+        });
+*/ 
+
     //send messages
-   
-
-
-
-
     $(document).on("click","#send_chat", function(){
  	var user_id = '<?= session()->get('user_id') ?>';
  	var recevied_id = $("#uname").val();	
@@ -127,17 +170,8 @@ function mediachat(id,username){
              });
              $('.send-body').html(html);
              }
-              var data= ""; 
-             if(messages.recieve){
-              messages.recieve.forEach((a) => {
-                 data += '<div class="col-md-12 alert alert-info" align="left">';
-                 data += a.chat_message;
-                 data +='</div>';
-                
-             });
-             $('.received_withd_msg').html(data); 
-             }
-             
+
+                         
           }
         });
     }else{
