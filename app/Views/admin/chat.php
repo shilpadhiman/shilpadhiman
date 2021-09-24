@@ -93,7 +93,6 @@ function mediachat(id,username){
           data: {id:id},
           dataType: "json",
           success: function (json) {
-           
            console.log(json.chat_data);
 
             var html= "";
@@ -121,17 +120,15 @@ function mediachat(id,username){
                 //not found
              }
 
-   
+
      
           }
-
         });
         }
-        
-        /*$(document).ready(function(){
-        setTimeout(mediachat(id,username),1000);
+        $(document).ready(function(){
+        setTimeout(mediachat(id,'username'),1000);
         });
-*/ 
+ 
 
     //send messages
     $(document).on("click","#send_chat", function(){
@@ -170,7 +167,6 @@ function mediachat(id,username){
              });
              $('.send-body').html(html);
              }
-
                          
           }
         });
