@@ -41,7 +41,7 @@ $session = \Config\Services::session($config);
      }
 
      }
-    return view('admin/register', $datalogin);
+    return $datalogin;
     }
 
 
@@ -103,7 +103,7 @@ public function login(){
               $data['loginbtn']=$client->createAuthurl();
         //}
 
-      //$data['login']=$this->user_login();        
+      $data['login']=$this->Ulogin();        
 
  	return view('admin/register', $data);
  	}

@@ -18,7 +18,6 @@
 }
     </style>
 
-
 <div class="page-content page-container" id="page-content">
     <div class="padding">
 	<div class="row container d-flex justify-content-center">
@@ -31,7 +30,8 @@
 
 		 <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:600px !important;">
 			  <?php                              
-		    foreach($chat as $chatvalue) {?>
+		    foreach($chat as $chatvalue)
+             {?>
 			<div class="media media-chat">
             <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">                
 				<div class="media-body" id="receivermsg" onclick="mediachat('<?php echo $chatvalue['id'];?>','<?php echo $chatvalue['name'];?>')">
@@ -54,12 +54,8 @@
             </div>
             <div class="user_details"></div>
                    
-			</div>
-                
+			</div>                
 	    </div>
-
-
-
 	    <div class="col-md-1">
 		<div class="card-header">
 			<h4 class="card-title"></h4><a class="btn btn-xs btn-info" href="<?= site_url('logout')?>">Logout</a>
@@ -70,24 +66,33 @@
 	</div>
     </div>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 <script type="text/javascript">
 var url= '<?php echo site_url();?>';
 </script>
 
-<script> //CHAT SYSTE
-  function mediachat(id,username){
+<script>
+$(document).ready(function(){
+    mediachat(id,username);
+alert(id);
+
+});
+
+</script>
+
+<script>
+function mediachat(id,username){
       $("#chats").html('<div class="card card-bordered"><div class="chat_window_'+id+'" data-touserid="'+id+'" id="chat_box'+id+'"><div class="card-header"><h4 class="card-title"><strong>'+username+'</strong></h4><a class="btn btn-xs btn-warning" href="#" data-abc="true">Lets chat</a></div> <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;"><div class="media media-chat"><img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="..."><div class="received_withd_msg"></div></div><div class="media media-send"><div class= "send-body"></div></div></div><div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div></div></div><div class="publisher bt-1 border-light"><img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="..."><div id="chat_message_area" contenteditable class="form-control" ></div><span class="publisher-btn file-group"><i class="fa fa-paperclip file-browser"></i><input type="file"> </span> <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a><button type="button" class="publisher-btn text-info" name="send_chat" id="send_chat"><i class="fa fa-paper-plane"></i></button><input type="hidden" name="uname" value='+id+' id="uname"></div></div></div>');
-
           }
- 
-
- 
 
     //send messages
+   
 
-$(document).on("click","#send_chat", function(){
- 	var user_id = '<?= session()->get('id') ?>';
+
+
+
+    $(document).on("click","#send_chat", function(){
+ 	var user_id = '<?= session()->get('user_id') ?>';
  	var recevied_id = $("#uname").val();	
     var chat_message= $.trim($('#chat_message_area').html());
     
@@ -138,10 +143,6 @@ $(document).on("click","#send_chat", function(){
     }else{
     alert('type soomething');
     }
-
     });
-
-
-
 
   </script>
